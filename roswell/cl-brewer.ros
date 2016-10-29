@@ -1,0 +1,16 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#| <Put a one-line description here>
+exec ros -Q -- $0 "$@"
+|#
+(ql:quickload '(:cl-brewer) :silent t)
+
+(defpackage :ros.script.cl-brewer
+  (:use :cl))
+
+(in-package :ros.script.cl-brewer)
+
+(defun main (&rest args)
+  (apply #'cl-brewer:main args))
+
+;;; vim: set ft=lisp lisp:
