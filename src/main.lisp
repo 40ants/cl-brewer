@@ -7,6 +7,9 @@
 
 (defclass <formula> ()
   (
+   (root-system
+    :initarg :root-system
+    :accessor root-system)
    (missing-systems
     :initarg :missing-systems
     :accessor missing-systems)
@@ -17,17 +20,20 @@
 (defun main (args)
   (if (stringp args)
       (main (list args))
-      (let* ((system (car args))
-             (system-deps (asdf::system-depends-on (asdf::find-system system)))
-             (formula (expand-deps system-deps)))
-        (format nil "The system in question is ~a with existing deps ~a and missing deps~a" system (included-systems formula) (missing-systems formula))
+      (let* ((formula (create-formula (car args))))
         (if (> (length (missing-systems formula)) 0)
             (format nil "There are systems that cannot be found with quicklisp, aborting there. ~a" (missing-systems formula))
-            (format nil "Dependencies lookup was successful, proceeding")
+            (format nil "Dependencies lookup was successful, proceeding ~a" formula)
             ))))
 
-(defun expand-deps (deps)
-  (let ((existing-systems)
+(defgeneric create-formula (system))
+
+(defmethod create-formula ((system string))
+  (create-formula (asdf::find-system system)))
+
+(defmethod create-formula (system)
+  (let ((deps (asdf::system-depends-on system))
+        (existing-systems)
         (missing-systems))
     (labels ((expand-dep (name)
                (let ((system (ql-dist:find-system name)))
@@ -39,5 +45,6 @@
                         (push name missing-systems))))))
       (dolist (subname deps) (expand-dep subname))
       (make-instance '<formula>
+                     :root-system system
                      :missing-systems (remove-duplicates missing-systems :test #'string=)
                      :included-systems (remove-duplicates existing-systems)))))
