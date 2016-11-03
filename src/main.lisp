@@ -72,7 +72,7 @@ class ~a < Formula
 
     ENV[\"CL_SOURCE_REGISTRY\"] = \"#{buildpath}/lib//:#{buildpath}//\"
     ENV[\"ASDF_OUTPUT_TRANSLATIONS\"] = \"/:/\"
-    system \"buildapp\", \"bla-standalone\"
+    system \"buildapp\", \"--load-system\", \"~A\", \"--output\", \"~A\", \"--entry\", \"cl-journal.main'
 
     bin.install ~S
   end
@@ -84,6 +84,8 @@ class ~a < Formula
           (sha256 formula)
           (repo-head formula)
           (mapcar #'print-formula (included-systems formula))
+          (name formula)
+          (name formula)
           (name formula)
           ))
 
