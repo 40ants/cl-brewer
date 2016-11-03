@@ -12,7 +12,8 @@ This file is a part of cl-brewer project.
   :author "Dmitry Petrov <dpetroff@gmail.com>"
   :version "0.1.0"
   :license "Public Domain"
-  :depends-on ()
+  :depends-on (#:quicklisp
+               #:ironclad)
   :components ((:module "src"
                 :components
                 (
