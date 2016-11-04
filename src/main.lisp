@@ -134,8 +134,10 @@ end
 (defgeneric sha256 (formula))
 
 (defmethod sha256 ((formula <formula>))
-  (declare (ignore formula))
-  "<sha256 to be implemented>")
+  (let ((fname (make-pathname :directory '(:absolute "tmp")
+                              :name (name formula))))
+    (trivial-download:download (url formula) fname)
+    (sha256 fname)))
 
 (defmethod sha256 ((path pathname))
   (ironclad:byte-array-to-hex-string
