@@ -22,9 +22,19 @@
       (main (list args))
       (let* ((formula (create-formula (car args))))
         (if (> (length (missing-systems formula)) 0)
-            (format nil "There are systems that cannot be found with quicklisp, aborting there. ~a" (missing-systems formula))
-            (format nil "Dependencies lookup was successful, proceeding ~a" formula)
+            (format t "There are systems that cannot be found with quicklisp, aborting there. ~a" (missing-systems formula))
+            (progn
+              (format t "Dependencies lookup was successful, proceeding ~a" formula)
+              (save-formula formula (car args)))
             ))))
+
+(defun save-formula (formula name)
+  (let* ((output-file (make-pathname :name name :type "rb")))
+    (with-open-file (stream output-file
+                            :direction :output
+                            :if-exists :overwrite
+                            :if-does-not-exist :create)
+      (print-formula formula :stream stream))))
 
 (defgeneric create-formula (system))
 
@@ -49,10 +59,10 @@
                      :missing-systems (remove-duplicates missing-systems :test #'string=)
                      :included-systems (remove-duplicates existing-systems)))))
 
-(defgeneric print-formula (formula))
+(defgeneric print-formula (formula &key stream))
 
-(defmethod print-formula ((formula <formula>))
-  (format t "~:
+(defmethod print-formula ((formula <formula>) &key (stream t))
+  (format stream "~:
 class ~a < Formula
   desc ~S
   homepage ~S
@@ -76,8 +86,9 @@ class ~a < Formula
 
     bin.install ~S
   end
+end
 "
-          (name formula)
+          (rubyize-name (name formula))
           (description formula)
           (home-page formula)
           (url formula)
@@ -89,7 +100,8 @@ class ~a < Formula
           (name formula)
           ))
 
-(defmethod print-formula ((dist ql-dist:system))
+(defmethod print-formula ((dist ql-dist:system) &key (stream t))
+  (declare (ignore stream))
   (let ((release (ql-dist:release dist)))
     (format nil "~:
   resource ~S do
@@ -130,3 +142,6 @@ class ~a < Formula
 
 (defmethod sha256 ((dist ql-dist:system))
   (sha256 (ql-dist:ensure-local-archive-file (ql-dist:release dist))))
+
+(defun rubyize-name (name)
+  (string-capitalize (remove #\- "cl-journal") :start 0 :end 1))
