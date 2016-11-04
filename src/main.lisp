@@ -144,5 +144,13 @@ end
 (defmethod sha256 ((dist ql-dist:system))
   (sha256 (ql-dist:ensure-local-archive-file (ql-dist:release dist))))
 
+(defun split-string (string chr)
+  (loop for i = 0 then (1+ j)
+        as j = (position chr string :start i)
+        collect (subseq string i j)
+        while j))
+
 (defun rubyize-name (name)
-  (string-capitalize (remove #\- name) :start 0 :end 1))
+  (apply #'concatenate 'string
+               (mapcar #'(lambda (str) (string-capitalize str :start 0 :end 1))
+                       (split-string name #\-))))
