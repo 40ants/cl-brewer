@@ -145,4 +145,4 @@ end
   (sha256 (ql-dist:ensure-local-archive-file (ql-dist:release dist))))
 
 (defun rubyize-name (name)
-  (string-capitalize (remove #\- "cl-journal") :start 0 :end 1))
+  (string-capitalize (remove #\- name) :start 0 :end 1))
