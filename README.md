@@ -21,6 +21,10 @@ but has a purpose to make a process simplier by:
 At the moment there two assumptions:
 
 * We can use `buildapp to make executable`
+* Formula is generated for the system available for asdf
+* All dependencies should be available via quicklisp
+* System source code should live on github all releases should be tagged with vX.Y.Z scheme
+* System should have description, version, homepage fields defined
 * Buildapp calls main function. By default namespace is default to system name but can be overridden with option
 
 ## Install
