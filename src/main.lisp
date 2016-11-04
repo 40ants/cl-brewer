@@ -82,7 +82,7 @@ class ~a < Formula
 
     ENV[\"CL_SOURCE_REGISTRY\"] = \"#{buildpath}/lib//:#{buildpath}//\"
     ENV[\"ASDF_OUTPUT_TRANSLATIONS\"] = \"/:/\"
-    system \"buildapp\", \"--load-system\", \"~A\", \"--output\", \"~A\", \"--entry\", \"~A.main"
+    system \"buildapp\", \"--load-system\", \"~A\", \"--output\", \"~A\", \"--entry\", \"~A.main\"
 
     bin.install ~S
   end
