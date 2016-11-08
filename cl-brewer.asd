@@ -18,7 +18,11 @@ This file is a part of cl-brewer project.
   :components ((:module "src"
                 :components
                 (
-                 (:file "main"))))
+                 (:file "package")
+                 (:file "utils")
+                 (:file "formula")
+                 (:file "main")
+                 )))
   :long-description
   #.(with-open-file (stream (merge-pathnames
                              #p"README.md"
