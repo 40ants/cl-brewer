@@ -1,6 +1,6 @@
 (in-package :cl-brewer)
 
-(defparameter *version* "0.3.0dev")
+(defparameter *version* "0.3.0")
 
 (defparameter +command-line-spec+
   '(
