@@ -43,7 +43,8 @@ end
                             :if-does-not-exist :create)
       (print-formula formula :stream stream :entry-point entry-point))))
 
-(defgeneric create-formula (system))
+(defgeneric create-formula (system)
+  (:documentation "Create <formula> object based on asdf:system with a list of all dependencies"))
 
 (defmethod create-formula ((system string))
   (create-formula (asdf::find-system system)))
@@ -66,7 +67,8 @@ end
                      :missing-systems (remove-duplicates missing-systems :test #'string=)
                      :included-systems (remove-duplicates existing-systems)))))
 
-(defgeneric print-formula (formula &key stream entry-point))
+(defgeneric print-formula (formula &key stream entry-point)
+  (:documentation "Print object into a brew formula"))
 
 (defmethod print-formula ((formula <formula>) &key (stream t) entry-point)
   (format stream +formula-body+
