@@ -21,7 +21,7 @@ class ~a < Formula
 
     ENV[\"CL_SOURCE_REGISTRY\"] = \"#{buildpath}/lib//:#{buildpath}//\"
     ENV[\"ASDF_OUTPUT_TRANSLATIONS\"] = \"/:/\"
-    system \"buildapp\", \"--load-system\", \"~A\", \"--output\", \"~A\", \"--entry\", \"~A.main::main\"
+    system \"buildapp\", \"--load-system\", \"~A\", \"--output\", \"~A\", \"--entry\", \"~A\"
 
     bin.install ~S
   end
@@ -35,13 +35,13 @@ end
   end~%~%")
 
 
-(defun save-formula (formula name)
+(defun save-formula (formula name entry-point)
   (let* ((output-file (make-pathname :name name :type "rb")))
     (with-open-file (stream output-file
                             :direction :output
                             :if-exists :overwrite
                             :if-does-not-exist :create)
-      (print-formula formula :stream stream))))
+      (print-formula formula :stream stream :entry-point entry-point))))
 
 (defgeneric create-formula (system))
 
@@ -66,9 +66,9 @@ end
                      :missing-systems (remove-duplicates missing-systems :test #'string=)
                      :included-systems (remove-duplicates existing-systems)))))
 
-(defgeneric print-formula (formula &key stream))
+(defgeneric print-formula (formula &key stream entry-point))
 
-(defmethod print-formula ((formula <formula>) &key (stream t))
+(defmethod print-formula ((formula <formula>) &key (stream t) entry-point)
   (format stream +formula-body+
           (rubyize-name (name formula))
           (description formula)
@@ -79,12 +79,14 @@ end
           (mapcar #'print-formula (included-systems formula))
           (name formula)
           (name formula)
-          (name formula)
+          (if (null entry-point)
+              (format nil "~a.main" (name formula))
+              entry-point)
           (name formula)
           ))
 
-(defmethod print-formula ((dist ql-dist:system) &key (stream t))
-  (declare (ignore stream))
+(defmethod print-formula ((dist ql-dist:system) &key (stream t) entry-point)
+  (declare (ignore stream entry-point))
   (let ((release (ql-dist:release dist)))
     (format nil +dependency-body+
             (ql-dist:name release)
