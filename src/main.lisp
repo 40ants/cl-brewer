@@ -29,7 +29,7 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
                  (save-formula formula name main))
                ))))))
 
-(defun main (args)
+(defun main (&rest args)
   (handle-command-line
    +command-line-spec+
    'bake-system
