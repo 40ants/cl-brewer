@@ -39,7 +39,7 @@ end
   (let* ((output-file (make-pathname :name name :type "rb")))
     (with-open-file (stream output-file
                             :direction :output
-                            :if-exists :overwrite
+                            :if-exists :supersede
                             :if-does-not-exist :create)
       (print-formula formula :stream stream :entry-point entry-point))))
 
