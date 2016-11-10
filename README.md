@@ -1,4 +1,4 @@
-# Homebrew formula builder for common lisp applications
+# Homebrew formula builder for (command line) common lisp applications
 
 Currently there is now easy way to distribute common lisp applications.
 One promising way is to use [roswell](https://github.com/roswell/roswell) project
@@ -11,6 +11,10 @@ we need is to be able to generate formula that will handle installation proccess
 Since homebrew guidelines are not really fond of using third-party managers to
 get dependencies, we need to generate list manually and feed it to brew.
 
+cl-brewer uses sbcl (default for buildapp) and targets command line applications
+written in common lisp. GUI applications haven't been tested and might require additional
+changes.
+
 This application is based on the awesome [quicklisp-homebrew-roundup](https://github.com/benesch/quicklisp-homebrew-roundup)
 but has a purpose to make a process simplier by:
 
@@ -18,7 +22,7 @@ but has a purpose to make a process simplier by:
 * Allowing to generate a complete formula, not just dependencies
 * Having a cli interface that can be used in CI services to generate formulas automatically.
 
-At the moment there two assumptions:
+At the moment several assumptions were made:
 
 * We can use `buildapp to make executable`
 * Formula is generated for the system available for asdf
@@ -42,6 +46,11 @@ $ ros install can3p/cl-brewer
 ```
 $ cl-brewer <your-system-name> # will emit <your-system-name>.rb file in current folder
 ```
+
+## Contribute
+
+If you are interested in using this project but your application has different requirements,
+please open an issue or make a pull request. Contributions are welcome!
 
 ## License
 
