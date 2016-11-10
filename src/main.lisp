@@ -13,7 +13,7 @@
     ))
 
 (defun print-help ()
-  (format t "cl-brewer, common-lisp version ~a~%
+  (format t "cl-brewer version ~a~%
 Usage: cl-brewer [options] <system-name>~%~%" *version*)
   (show-option-help +command-line-spec+ :sort-names t))
 
