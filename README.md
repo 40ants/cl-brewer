@@ -1,7 +1,7 @@
 # Homebrew formula builder for common lisp applications
 
 Currently there is now easy way to distribute common lisp applications.
-One promising way is to use [https://github.com/roswell/roswell](roswell) project
+One promising way is to use [roswell](https://github.com/roswell/roswell) project
 however it might be to complicated for the users how just want to install
 an application and are not really interested in having one more package manager
 for that.
@@ -11,7 +11,7 @@ we need is to be able to generate formula that will handle installation proccess
 Since homebrew guidelines are not really fond of using third-party managers to
 get dependencies, we need to generate list manually and feed it to brew.
 
-This application is based on the awesome [https://github.com/benesch/quicklisp-homebrew-roundup](quicklisp-homebrew-roundup)
+This application is based on the awesome [quicklisp-homebrew-roundup](https://github.com/benesch/quicklisp-homebrew-roundup)
 but has a purpose to make a process simplier by:
 
 * Allowing to generate file for any system available not just quicklisp package (dependencies should be on quicklisp though)
@@ -27,7 +27,7 @@ At the moment there two assumptions:
 * System should have description, version, homepage fields defined
 * Buildapp calls main function. By default namespace is default to system name but can be overridden with option
 
-Here is an [https://github.com/can3p/homebrew-cl-journal/blob/master/cl-journal.rb](example formula)
+Here is an [example formula](https://github.com/can3p/homebrew-cl-journal/blob/master/cl-journal.rb)
 
 ## Install
 
