@@ -27,6 +27,8 @@ At the moment there two assumptions:
 * System should have description, version, homepage fields defined
 * Buildapp calls main function. By default namespace is default to system name but can be overridden with option
 
+Here is an [https://github.com/can3p/homebrew-cl-journal/blob/master/cl-journal.rb](example formula)
+
 ## Install
 
 ```
