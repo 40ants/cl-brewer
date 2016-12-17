@@ -34,6 +34,9 @@ end
     sha256 ~S
   end~%~%")
 
+;; we skip systems that we know for sure are available
+(defparameter +whitelisted-systems+ '("sb-introspect"))
+
 
 (defun save-formula (formula name entry-point)
   (let* ((output-file (make-pathname :name name :type "rb")))
@@ -59,6 +62,7 @@ end
                         (push system existing-systems)
                         (dolist (subname (ql-dist:required-systems system))
                           (expand-dep subname)))
+                       ((find name +whitelisted-systems+ :test #'string=) nil)
                        (t
                         (push name missing-systems))))))
       (dolist (subname deps) (expand-dep subname))
