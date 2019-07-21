@@ -1,1 +1,3 @@
 *.fasl
+/bundle-libs/
+/quicklisp/
