@@ -12,7 +12,9 @@ This file is a part of cl-brewer project.
   :author "Dmitry Petrov <dpetroff@gmail.com>"
   :version "0.4.0"
   :license "Public Domain"
+  :homepage "https://github.com/svetlyak40wt/cl-brewer"
   :depends-on (#:quicklisp
+               #:alexandria
                #:ironclad
                #:command-line-arguments
                #:trivial-download)

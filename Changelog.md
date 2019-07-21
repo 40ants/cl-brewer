@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.5.0
+
+* Now cl-brewer can work with package-inferred asdf systems.
+* Previously, some archives were included more than once because
+  they contains multiple systems. Now this is fixed.
+* Added option `--compress-core`. It reduces size of a simple
+  "hello world" from 52M to 13M.
+* Function `cl-brewer::create-formula` was made external and now
+  can accept system name as a symbol.
+* Function `cl-brewer::save-formula` was made external.
+* ASDF option `defsystem-depends-on` was supported.
+
 ## 0.4.0
 
 * 2016-12-17 Provide a way to skip some systems if not found by quicklisp. Right now it's only sb-introspect

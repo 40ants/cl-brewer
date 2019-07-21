@@ -2,18 +2,19 @@
 
 (defgeneric sha256 (formula))
 
-(defmethod sha256 ((formula <formula>))
+(defmethod sha256 ((formula formula))
   (let ((fname (make-pathname :directory '(:absolute "tmp")
-                              :name (name formula))))
-    (trivial-download:download (url formula) fname)
+                              :name (name formula)))
+        (url (url formula)))
+    (trivial-download:download url fname)
     (sha256 fname)))
 
 (defmethod sha256 ((path pathname))
   (ironclad:byte-array-to-hex-string
    (ironclad:digest-file :sha256 path)))
 
-(defmethod sha256 ((dist ql-dist:system))
-  (sha256 (ql-dist:ensure-local-archive-file (ql-dist:release dist))))
+(defmethod sha256 ((release ql-dist:release))
+  (sha256 (ql-dist:ensure-local-archive-file release)))
 
 (defun split-string (string chr)
   (loop for i = 0 then (1+ j)

@@ -26,8 +26,7 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
                (format t "There are systems that cannot be found with quicklisp, aborting there. ~a~%" (missing-systems formula))
                (progn
                  (format t "Dependencies lookup was successful, proceeding~%")
-                 (save-formula formula name main))
-               ))))))
+                 (save-formula formula name :entry-point main))))))))
 
 (defun main (&rest args)
   (handle-command-line
