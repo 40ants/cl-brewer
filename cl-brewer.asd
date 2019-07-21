@@ -10,7 +10,7 @@ This file is a part of cl-brewer project.
 (defsystem cl-brewer
   :description "Homebrew formula builder for common lisp applications"
   :author "Dmitry Petrov <dpetroff@gmail.com>"
-  :version "0.5.0"
+  :version "0.5.1"
   :license "Public Domain"
   :homepage "https://github.com/svetlyak40wt/cl-brewer"
   :depends-on (#:quicklisp

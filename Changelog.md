@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+
+* Kickstarting quicklisp cliend when building cl-brewer.
+
 ## 0.5.0
 
 * Now cl-brewer can work with package-inferred asdf systems.
