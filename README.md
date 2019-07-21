@@ -36,6 +36,12 @@ Here is an [example formula](https://github.com/can3p/homebrew-cl-journal/blob/m
 ## Install
 
 ```
+brew tap svetlyak40wt/cl-brewer https://github.com/svetlyak40wt/cl-brewer
+```
+
+Or you can install it using Roswell:
+
+```
 # install roswell and sbcl before
 $ ros install can3p/cl-brewer
 ```

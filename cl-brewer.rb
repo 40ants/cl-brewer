@@ -73,6 +73,11 @@ class ClBrewer < Formula
     sha256 "7fd9fce21a83fb6d4f42bf146bdc6e5e36d8e95c6cf5427cd6aa78999b2a99e8"
   end
 
+  resource "quicklisp-quicklisp-client" do
+    url "http://dist.ultralisp.org/ultralisp/archive/q/quicklisp-quicklisp-client-20190721192409.tgz"
+    sha256 "e19814f81b0ca81d13c7663bd9c00155fad722508f4bdc3f7fb5b96b3333330a"
+  end
+
   resource "sharplispers-ironclad" do
     url "http://dist.ultralisp.org/ultralisp/archive/s/sharplispers-ironclad-20190713195502.tgz"
     sha256 "fe749dfb07c1c46e7de680672e373557110a3d8775e73499a5f6ffb7ff11f098"
