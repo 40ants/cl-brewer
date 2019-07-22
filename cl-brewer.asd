@@ -1,16 +1,7 @@
-#|
-This file is a part of cl-brewer project.
-|#
-
-(in-package :cl-user)
-(defpackage cl-brewer2-asd
-  (:use :cl :asdf))
-(in-package :cl-brewer2-asd)
-
 (defsystem cl-brewer
   :description "Homebrew formula builder for common lisp applications"
   :author "Dmitry Petrov <dpetroff@gmail.com>"
-  :version "0.5.3"
+  :version "0.5.4"
   :license "Public Domain"
   :homepage "https://github.com/svetlyak40wt/cl-brewer"
   :depends-on (#:quicklisp

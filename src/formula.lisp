@@ -89,7 +89,7 @@ end
 (defparameter +whitelisted-systems+ '("asdf" "sb-introspect"))
 
 
-(defun save-formula (formula name &key entry-point)
+(defun save-formula (formula name &key entry-point preload)
   (let* ((output-file (make-pathname :name name :type "rb")))
     (with-open-file (stream output-file
                             :direction :output
@@ -97,7 +97,8 @@ end
                             :if-does-not-exist :create)
       (print-formula formula
                      :stream stream
-                     :entry-point entry-point))))
+                     :entry-point entry-point
+                     :preload preload))))
 
 (defgeneric create-formula (system)
   (:documentation "Create <formula> object based on asdf:system with a list of all dependencies"))
@@ -175,14 +176,15 @@ end
           (sha256 release)))
 
 
-(defun print-formula (formula &key (stream t) entry-point)
+(defun print-formula (formula &key (stream t) entry-point preload)
   (check-type formula formula)
   (print-header formula :stream stream)
   (print-dependencies formula :stream stream)
   (print-releases formula :stream stream)
   (print-install formula
                  :stream stream
-                 :entry-point entry-point)
+                 :entry-point entry-point
+                 :preload preload)
   (print-footer formula :stream stream))
 
 
@@ -208,9 +210,9 @@ end
               do (print-release release :stream stream)))))
 
 
-(defgeneric print-install (formula &key stream entry-point)
+(defgeneric print-install (formula &key stream entry-point preload)
   (:documentation "Outputs \"install\" method for the formula.")
-  (:method ((formula formula) &key (stream t) entry-point)
+  (:method ((formula formula) &key (stream t) entry-point preload)
     (format stream
             "  def install
     resources.each do |resource|
@@ -220,7 +222,8 @@ end
     (print-env-vars formula :stream stream)
     (print-build-commands formula
                           :stream stream
-                          :entry-point entry-point)
+                          :entry-point entry-point
+                          :preload preload)
     (format stream "  end~%")))
 
 
@@ -234,16 +237,25 @@ end
 ")))
 
 
-(defgeneric print-build-commands (formula &key stream entry-point)
+(defgeneric print-build-commands (formula &key stream entry-point preload
+                                  &allow-other-keys)
   (:documentation "Outputs build commands for \"install\" method of the formula.")
   (:method ((formula formula) &key (stream t) entry-point)
     (declare (ignorable formula stream entry-point))))
 
 
-(defmethod print-build-commands ((formula buildapp-formula) &key (stream t) entry-point)
+(defmethod print-build-commands ((formula buildapp-formula)
+                                 &key (stream t) entry-point preload
+                                 &allow-other-keys)
   (format stream
           "
-    system \"buildapp\", \"--compress-core\", \"--load-system\", \"~A\", \"--output\", \"~A\", \"--entry\", \"~A\"
+    system \"buildapp\", \"--compress-core\", ")
+  
+  (dolist (item preload)
+    (format stream "\"--load-system\", \"~A\", " item))
+  
+  (format stream
+          "\"~A\", \"--output\", \"~A\", \"--entry\", \"~A\"
 
     bin.install ~S
 "
@@ -255,11 +267,19 @@ end
           (name formula)))
 
 
-(defmethod print-build-commands ((formula deploy-formula) &key (stream t) entry-point)
+(defmethod print-build-commands ((formula deploy-formula)
+                                 &key (stream t) entry-point preload
+                                 &allow-other-keys)
   (declare (ignorable entry-point))
   (format stream
           "
-    system \"sbcl\", \"--eval\", \"(require :asdf)\", \"--eval\", \"(handler-case (asdf:make :~A) (error () (uiop:quit 1)))\"
+    system \"sbcl\", \"--eval\", \"(require :asdf)\", ")
+  
+  (dolist (item preload)
+    (format stream "\"--eval\", \"(handler-case (asdf:load-system :~A) (error () (uiop:quit 1)))\", " item))
+  
+  (format stream
+          "\"--eval\", \"(handler-case (asdf:make :~A) (error () (uiop:quit 1)))\"
     bin.install Dir[\"bin/*\"]
 "
           (name formula)))

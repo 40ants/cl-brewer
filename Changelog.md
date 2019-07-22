@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.4
+
+* Added support for ``--preload`` option.
+  It allows to embedd Quicklisp client when building a binary for a homebrew.
+
 ## 0.5.3
 
 * More diagnostics to understand why does not work a binary built by homebrew.

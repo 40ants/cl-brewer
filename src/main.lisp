@@ -7,18 +7,28 @@
     (("main" #\m) :type string
                   :optional t
                   :documentation "Specify an entrypoint for a system. Default is main function in a package with system's name")
+    (("preload" #\p) :type string
+                     :optional t
+                     :documentation "A comma-separated list of system names to preload before starting a build.")
     (("help" #\h) :type boolean
                   :optional t
-                  :documentation "Show help message")
-    ))
+                  :documentation "Show help message")))
+
 
 (defun print-help ()
   (format t "cl-brewer version ~a~%
 Usage: cl-brewer [options] <system-name>~%~%" *version*)
   (show-option-help +command-line-spec+ :sort-names t))
 
-(defun bake-system (args &key main help)
-  (let ((name (car args)))
+
+(defun split (text)
+  (when text
+    (split-string text #\,)))
+
+
+(defun bake-system (args &key main help preload)
+  (let ((name (car args))
+        (preload (split preload)))
     (cond
       ((or help (null name)) (print-help))
       (t
@@ -30,7 +40,9 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
                         (missing-systems formula)))
                (t
                 (format t "Dependencies lookup was successful, proceeding~%")
-                (save-formula formula name :entry-point main))))))))
+                (save-formula formula name
+                              :entry-point main
+                              :preload preload))))))))
 
 (defun main (&rest args)
   (format t "Main function args: ~S~%" args)
