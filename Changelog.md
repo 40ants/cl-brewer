@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.2
+
+* Added an entry point for buildapp.
+
 ## 0.5.1
 
 * Kickstarting quicklisp cliend when building cl-brewer.

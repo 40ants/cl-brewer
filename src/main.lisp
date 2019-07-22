@@ -37,3 +37,7 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
    :positional-arity 0
    :rest-arity t))
 
+
+(defun buildapp-main (args)
+  (apply #'main args))
+
