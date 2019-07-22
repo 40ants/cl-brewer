@@ -1,8 +1,8 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for common lisp applications"
   homepage "https://github.com/svetlyak40wt/cl-brewer"
-  url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.2.tar.gz"
-  sha256 "b79f3086b8f2deb6337df43f5c758b3a577c79aee66ff4e2222ec578147b0a9d"
+  url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.5.tar.gz"
+  sha256 "966b923b84d58279ac8249630e47b0e7356dd99b4de6dc7de9db762f697301e6"
   head NIL
 
   depends_on "sbcl"
@@ -131,7 +131,7 @@ class ClBrewer < Formula
     ENV["CL_SOURCE_REGISTRY"] = "#{buildpath}/lib//:#{buildpath}//"
     ENV["ASDF_OUTPUT_TRANSLATIONS"] = "/:/"
 
-    system "buildapp", "--compress-core", "--load-system", "quicklisp-starter", "cl-brewer", "--output", "cl-brewer", "--entry", "cl-brewer::buildapp-main"
+    system "buildapp", "--compress-core", "--load-system", "quicklisp-starter", "--load-system", "cl-brewer", "--output", "cl-brewer", "--entry", "cl-brewer::buildapp-main"
 
     bin.install "cl-brewer"
   end
