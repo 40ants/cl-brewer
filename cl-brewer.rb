@@ -1,7 +1,9 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for common lisp applications"
   homepage "https://github.com/svetlyak40wt/cl-brewer"
-  url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.6.tar.gz"
+#  url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.6.tar.gz"
+  url "/Users/art/projects/lisp/cl-brewer", :using => :git
+  version "0.5.6-rc1"
   sha256 "0e042a5703b5748634af3d9c3748f6e546c6d1ec672efde7068a72b631e85957"
   head NIL
 

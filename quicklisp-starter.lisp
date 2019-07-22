@@ -5,9 +5,7 @@
            #:qenough))
 (in-package ql-setup)
 
-(defvar *quicklisp-home*
-  (asdf:component-pathname
-   (asdf:find-system :quicklisp)))
+(defvar *quicklisp-home* "")
 
 
 (defun qmerge (pathname)
@@ -17,3 +15,16 @@
 
 (defun qenough (pathname)
   (enough-namestring pathname *quicklisp-home*))
+
+
+;; (eval-when (:compile-toplevel
+;;             :load-toplevel
+;;             :execute)
+;;   (format t "====================================================================================================~%")
+;;   (format t "SBCL: ~A~%"
+;;           (lisp-implementation-version))
+;;   (format t "====================================================================================================~%")
+;;   (setf sb-ext:*on-package-variance*
+;;         nil
+;;         ;; '(:warn (:swank :swank-backend :swank-repl) :error t)
+;;         ))

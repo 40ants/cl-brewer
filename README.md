@@ -72,7 +72,30 @@ Downloading "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.5.tar.gz" (U
 NIL
 ```
 
-However, in most cases you can just install cl-brewer from the Homebrew.
+However, in most cases you can just install cl-brewer from the Homebrew. In this case,
+you can update `cl-brewer's` form with this command:
+
+    qlot exec ./cl-brewer-buildapp \
+              --preload quicklisp-starter \
+              --main cl-brewer::buildapp-main \
+              cl-brewer
+
+## How to install cl-brewer from a local formula
+
+Replace url line in a formula:
+
+    url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.6.tar.gz"
+
+with two lines like this:
+
+    url "/Users/art/projects/lisp/cl-brewer", :using => :git
+    version "0.5.6-rc1"
+    
+Next, do this in the shell:
+
+    HOMEBREW_NO_AUTO_UPDATE=1 brew install --debug --verbose ./cl-brewer.rb
+
+it should build and install `cl-brewer`.
 
 ## Contribute
 

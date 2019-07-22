@@ -4,19 +4,22 @@
   :version "0.5.6"
   :license "Public Domain"
   :homepage "https://github.com/svetlyak40wt/cl-brewer"
-  :depends-on (#:quicklisp
-               #:alexandria
-               #:ironclad
-               #:command-line-arguments
-               #:trivial-download)
+  
+  :build-operation "program-op"
+  :build-pathname "cl-brewer"
+  :entry-point "cl-brewer::asdf-main"
+  
+  :depends-on ("quicklisp"
+               "alexandria"
+               "ironclad"
+               "command-line-arguments"
+               "trivial-download")
   :components ((:module "src"
                 :components
-                (
-                 (:file "package")
+                ((:file "package")
                  (:file "utils")
                  (:file "formula")
-                 (:file "main")
-                 )))
+                 (:file "main"))))
   :long-description
   #.(with-open-file (stream (merge-pathnames
                              #p"README.md"
