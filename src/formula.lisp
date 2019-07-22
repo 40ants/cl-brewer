@@ -255,7 +255,7 @@ end
     (format stream "\"--load-system\", \"~A\", " item))
   
   (format stream
-          "\"~A\", \"--output\", \"~A\", \"--entry\", \"~A\"
+          "\"--load-system\", \"~A\", \"--output\", \"~A\", \"--entry\", \"~A\"
 
     bin.install ~S
 "

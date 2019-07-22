@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.5
+
+* Fixed a bug in preloading code on buildapp.
+
 ## 0.5.4
 
 * Added support for ``--preload`` option.

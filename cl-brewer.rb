@@ -131,7 +131,7 @@ class ClBrewer < Formula
     ENV["CL_SOURCE_REGISTRY"] = "#{buildpath}/lib//:#{buildpath}//"
     ENV["ASDF_OUTPUT_TRANSLATIONS"] = "/:/"
 
-    system "buildapp", "--compress-core", "--load-system", "quicklisp-starter", "--load-system", "cl-brewer", "--output", "cl-brewer", "--entry", "cl-brewer::buildapp-main"
+    system "buildapp", "--compress-core", "--load-system", "quicklisp-starter", "cl-brewer", "--output", "cl-brewer", "--entry", "cl-brewer::buildapp-main"
 
     bin.install "cl-brewer"
   end
