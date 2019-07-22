@@ -53,6 +53,27 @@ $ ros install can3p/cl-brewer
 $ cl-brewer <your-system-name> # will emit <your-system-name>.rb file in current folder
 ```
 
+## Building a formula for cl-brewer
+
+To kickstart a cl-brewer and to create a formula for itself, load it in the REPL and do like that:
+
+```
+CL-USER> (cl-brewer:create-formula :cl-brewer)
+#<BUILDAPP-FORMULA "cl-brewer" depends on 23 systems>
+
+CL-USER> (cl-brewer:save-formula * "cl-brewer"
+                                 :entry-point "cl-brewer::buildapp-main"
+                                 :preload (list "quicklisp-starter"))
+
+CL-USER> (cl-brewer:save-formula * "cl-brewer"
+                                 :entry-point "cl-brewer::buildapp-main"
+                                 :preload (list "quicklisp-starter"))
+Downloading "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.5.tar.gz" (Unknown size)
+NIL
+```
+
+However, in most cases you can just install cl-brewer from the Homebrew.
+
 ## Contribute
 
 If you are interested in using this project but your application has different requirements,
