@@ -21,14 +21,19 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
   (let ((name (car args)))
     (cond
       ((or help (null name)) (print-help))
-      (t (let* ((formula (create-formula name)))
-           (if (> (length (missing-systems formula)) 0)
-               (format t "There are systems that cannot be found with quicklisp, aborting there. ~a~%" (missing-systems formula))
-               (progn
-                 (format t "Dependencies lookup was successful, proceeding~%")
-                 (save-formula formula name :entry-point main))))))))
+      (t
+       (format t "Creating formula for ~S...~%" name)
+       (let* ((formula (create-formula name)))
+         (format t "Formula was created: ~S~%" formula)
+         (cond ((> (length (missing-systems formula)) 0)
+                (format t "There are systems that cannot be found with quicklisp, aborting there. ~a~%"
+                        (missing-systems formula)))
+               (t
+                (format t "Dependencies lookup was successful, proceeding~%")
+                (save-formula formula name :entry-point main))))))))
 
 (defun main (&rest args)
+  (format t "Main function args: ~S~%" args)
   (handle-command-line
    +command-line-spec+
    'bake-system
@@ -39,5 +44,6 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
 
 
 (defun buildapp-main (args)
+  (format t "Main function args: ~S~%" args)
   (apply #'main args))
 

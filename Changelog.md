@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.3
+
+* More diagnostics to understand why does not work a binary built by homebrew.
+
 ## 0.5.2
 
 * Added an entry point for buildapp.
