@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.6
+
+* Fixed arguments list in buildapp's entrypoint.
+
 ## 0.5.5
 
 * Fixed a bug in preloading code on buildapp.

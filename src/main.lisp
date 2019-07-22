@@ -45,7 +45,6 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
                               :preload preload))))))))
 
 (defun main (&rest args)
-  (format t "Main function args: ~S~%" args)
   (handle-command-line
    +command-line-spec+
    'bake-system
@@ -56,6 +55,7 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
 
 
 (defun buildapp-main (args)
-  (format t "Main function args: ~S~%" args)
-  (apply #'main args))
+  ;; First item in args is a program's name
+  ;; we need to strip it first.
+  (apply #'main (cdr args)))
 
