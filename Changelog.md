@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+* Now cl-brewer can be installed from the Homebrew tap as a binary.
+
 ## 0.5.6
 
 * Fixed arguments list in buildapp's entrypoint.
