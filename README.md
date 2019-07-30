@@ -73,9 +73,9 @@ NIL
 ```
 
 However, in most cases you can just install cl-brewer from the Homebrew. In this case,
-you can update `cl-brewer's` form with this command:
+you can update `cl-brewer's` formula with this command:
 
-    qlot exec ./cl-brewer-buildapp \
+    qlot exec cl-brewer \
               --preload quicklisp-starter \
               --main cl-brewer::buildapp-main \
               cl-brewer
