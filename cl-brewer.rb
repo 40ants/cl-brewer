@@ -1,8 +1,8 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for common lisp applications"
   homepage "https://github.com/svetlyak40wt/cl-brewer"
-  url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.6.0.tar.gz"
-  sha256 "644f7d81c845b2816357d1e6fea6e8a6034513e5bea5a47bea28b349bc10f102"
+  url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.7.0.tar.gz"
+  sha256 "823bc261aa7f01e2c73cfc59cbae7cac28070921214400fc9e1cdea396fe96c4"
   head NIL
 
   depends_on "sbcl"
@@ -24,8 +24,8 @@ class ClBrewer < Formula
   end
 
   resource "cl+ssl" do
-    url "http://beta.quicklisp.org/archive/cl+ssl/2019-07-10/cl+ssl-20190710-git.tgz"
-    sha256 "fb57e0dba4f795f8f160daea60dc59ebd1e287c37a3af01e7269429f2d6abe53"
+    url "http://beta.quicklisp.org/archive/cl+ssl/2019-08-13/cl+ssl-20190813-git.tgz"
+    sha256 "ff45d61cf3624ddb6584097515d4bfeb8e9e2abadcc4987785bdf683cd45505f"
   end
 
   resource "cl-babel-babel" do
