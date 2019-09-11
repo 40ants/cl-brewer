@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.0 (2019-09-11)
+
+* Added a generic `get-implicit-dependencies` which can be used to specify additional dependencies for systems
+  when asdf is not possible to figure them out. It can be used like that:
+  
+  ```
+  (defmethod cl-brewer:get-implicit-dependencies ((system-name (eql :cl-unicode)))
+      :flexi-streams)
+  ```
+
+  It can return a single keyword or a list of keywords.
+
 ## 0.6.0
 
 * Now cl-brewer can be installed from the Homebrew tap as a binary.

@@ -1,6 +1,7 @@
 *.fasl
 /bundle-libs/
 /quicklisp/
+/.qlot/
 /sly/
 /cl-brewer-buildapp
 /cl-brewer-asdf

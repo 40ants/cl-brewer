@@ -110,6 +110,29 @@ end
   (create-formula (asdf::find-system system)))
 
 
+(defgeneric get-implicit-dependencies (system-name)
+  (:documentation "Some systems, like cl-unicode have implicit dependencies in their asdf methods:
+https://github.com/edicl/cl-unicode/blob/8073fc5634c9d4802888ac03abf11dfe383e16fa/cl-unicode.asd#L67-L70
+use this method to provide information about such dependencies.
+
+System name is a keyword and method should return a one keyword or a list of keywords with names of systems.
+Each returned system should be possible to find with ql-dist:find-system.")
+  (:method ((system-name t))
+    nil)
+  (:method :around ((system-name t))
+    (flet ((to-system-name (value)
+             (string-downcase
+              (etypecase value
+                (keyword (symbol-name value))
+                (string value)))))
+      (mapcar #'to-system-name
+              (alexandria:ensure-list (call-next-method)))))
+  (:method ((system-name string))
+    (get-implicit-dependencies (make-keyword (string-upcase system-name))))
+  (:method ((system-name (eql :cl-unicode)))
+    :flexi-streams))
+
+
 (defmethod create-formula (system)
   (let* ((deps (append (asdf:system-depends-on system)
                        ;; We also need to include build dependencies
@@ -149,12 +172,15 @@ end
                                  ;; dependencies.
                                  :test #'string-equal
                                  :key #'ql-dist:name)
-                        (expand-deps (ql-dist:required-systems ql-system)))
+                        (expand-deps (ql-dist:required-systems ql-system))
+                        (expand-deps (get-implicit-dependencies (ql-dist:name ql-system))))
                        ;; If this is asdf package inferred subsystem,
                        ;; then we don't need to add it as a dependency itself,
                        ;; but still need to process it's dependencies.
                        (asdf-system
-                        (expand-deps (asdf:system-depends-on asdf-system)))
+                        (expand-deps (asdf:system-depends-on asdf-system))
+                        (expand-deps (get-implicit-dependencies
+                                      (asdf:component-name asdf-system))))
                        ;; ignore if whitelisted
                        ((find name +whitelisted-systems+ :test #'string=) nil)
                        ;; store as missing if it is not available in Quicklisp
