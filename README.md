@@ -80,7 +80,7 @@ you can update `cl-brewer's` formula with this command:
               --main cl-brewer::buildapp-main \
               cl-brewer
 
-## How to install cl-brewer from a local formula
+## How to install cl-brewer (or any other project) from a local formula
 
 Replace url line in a formula:
 
@@ -88,7 +88,7 @@ Replace url line in a formula:
 
 with two lines like this:
 
-    url "/Users/art/projects/lisp/cl-brewer", :using => :git
+    url "./", :using => :git
     version "0.5.6-rc1"
     
 Next, do this in the shell:
