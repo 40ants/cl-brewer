@@ -88,12 +88,12 @@ Replace url line in a formula:
 
 with two lines like this:
 
-    url "./", :using => :git
+    url File.dirname(__FILE__), :using => :git
     version "0.5.6-rc1"
     
 Next, do this in the shell:
 
-    HOMEBREW_NO_AUTO_UPDATE=1 brew install --debug --verbose ./cl-brewer.rb
+    HOMEBREW_NO_AUTO_UPDATE=1 brew install --debug --verbose ./*.rb
 
 it should build and install `cl-brewer`.
 

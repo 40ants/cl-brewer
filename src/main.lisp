@@ -95,12 +95,18 @@ Usage: cl-brewer [options] <system-name>~%~%" (get-version))
   (setf (uiop:getenv "SBCL_HOME") "")
 
   ;; We need this to make it possible to run cl-brewer under the Qlot
-  (setf ql:*quicklisp-home*
-        (probe-file
-         (or (uiop:getenv "QUICKLISP_HOME")
-             "")))
+  ;; If we don't check for existence of QUICKLISP_HOME variable
+  ;; and make (quicklisp:setup), then quicklisp client creates
+  ;; dist, local-projects and tmp in the current directory.
+  (when (uiop:getenv "QUICKLISP_HOME")
+    (setf ql:*quicklisp-home*
+          (probe-file
+           (or (uiop:getenv "QUICKLISP_HOME")
+               "")))
+
+    (let ((*trace-output* (make-broadcast-stream)))
+      (quicklisp:setup)))
   
-  (quicklisp:setup)
   ;; Buildapp version does not work without this line
   (asdf:clear-configuration)
   
@@ -110,8 +116,8 @@ Usage: cl-brewer [options] <system-name>~%~%" (get-version))
   (let ((name (car args))
         (preload (split preload)))
     (cond
-      ((or help (null name)) (print-help))
       (version (print-version))
+      ((or help (null name)) (print-help))
       (t
        (format t "Creating formula for ~S...~%" name)
 
@@ -133,9 +139,9 @@ Usage: cl-brewer [options] <system-name>~%~%" (get-version))
             (handler-case (ql:quickload name :silent t)
               (asdf:missing-dependency (condition)
                 (let ((required-dependency
-                        (alexandria:make-keyword
-                         (string-upcase (asdf/find-component:missing-requires
-                                         condition)))))
+                       (alexandria:make-keyword
+                        (string-upcase (asdf/find-component:missing-requires
+                                        condition)))))
                   (format t "Loading ~A's depdendency: ~A~%"
                           name
                           required-dependency)
