@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.0 (2019-09-12)
+
+* Now cl-brewer suppress debug output of the Deploy's startup process.
+* Added a `--version` command line option.
+
 ## 0.7.0 (2019-09-11)
 
 * Added a generic `get-implicit-dependencies` which can be used to specify additional dependencies for systems

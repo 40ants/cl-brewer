@@ -297,18 +297,27 @@ Each returned system should be possible to find with ql-dist:find-system.")
                                  &key (stream t) entry-point preload
                                  &allow-other-keys)
   (declare (ignorable entry-point))
-  (format stream
-          "
-    system \"sbcl\", \"--eval\", \"(require :asdf)\", ")
+  (let ((evals (list "(asdf:load-system :deploy)"
+                     "(require :asdf)")))
+    (format stream
+            "
+    system \"sbcl\"")
   
-  (dolist (item preload)
-    (format stream "\"--eval\", \"(handler-case (asdf:load-system :~A) (error () (uiop:quit 1)))\", " item))
+    (dolist (item preload)
+      (push (format nil "(handler-case (asdf:load-system :~A) (error () (uiop:quit 1)))" item)
+            evals))
+
+    (push (format nil "(handler-case (progn (setf deploy:*status-output* nil) (asdf:make :~A)) (error () (uiop:quit 1)))"
+                  (name formula))
+          evals)
+
+    (loop for eval in (reverse evals)
+          do (format stream ", \"--eval\", \"~A\"" eval))
   
-  (format stream
-          "\"--eval\", \"(handler-case (asdf:make :~A) (error () (uiop:quit 1)))\"
+    (format stream
+            "
     bin.install Dir[\"bin/*\"]
-"
-          (name formula)))
+")))
 
 
 (defgeneric print-header (formula &key stream)

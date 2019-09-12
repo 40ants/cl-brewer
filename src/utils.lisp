@@ -4,7 +4,7 @@
 
 (defmethod sha256 ((formula formula))
   (let ((fname (make-pathname :directory '(:absolute "tmp")
-                              :name (name formula)))
+                              :name (substitute #\- #\/ (name formula))))
         (url (url formula)))
     (trivial-download:download url fname)
     (sha256 fname)))
@@ -25,4 +25,4 @@
 (defun rubyize-name (name)
   (apply #'concatenate 'string
                (mapcar #'(lambda (str) (string-capitalize str :start 0 :end 1))
-                       (split-string name #\-))))
+                       (split-string (substitute #\- #\/ name) #\-))))

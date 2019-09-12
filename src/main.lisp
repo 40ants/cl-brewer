@@ -1,7 +1,5 @@
 (in-package :cl-brewer)
 
-(defparameter *version* "0.3.0")
-
 (defparameter +command-line-spec+
   '(
     (("main" #\m) :type string
@@ -12,13 +10,24 @@
                      :documentation "A comma-separated list of system names to preload before starting a build.")
     (("help" #\h) :type boolean
                   :optional t
-                  :documentation "Show help message")))
+     :documentation "Show help message")
+    (("version" #\v) :type boolean
+                     :optional t
+                     :documentation "Show program version")))
+
+(defun get-version ()
+  (asdf:component-version
+   (asdf:find-system :cl-brewer)))
 
 
 (defun print-help ()
   (format t "cl-brewer version ~a~%
-Usage: cl-brewer [options] <system-name>~%~%" *version*)
+Usage: cl-brewer [options] <system-name>~%~%" (get-version))
   (show-option-help +command-line-spec+ :sort-names t))
+
+
+(defun print-version ()
+  (format t "cl-brewer version ~a~%" (get-version)))
 
 
 (defun split (text)
@@ -81,7 +90,7 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
          (format t "Continuing~%"))))))
 
 
-(defun bake-system (args &key main help preload)
+(defun bake-system (args &key main help preload version)
   ;; We need this to make it possible to run a binary under qlot exec
   (setf (uiop:getenv "SBCL_HOME") "")
 
@@ -102,6 +111,7 @@ Usage: cl-brewer [options] <system-name>~%~%" *version*)
         (preload (split preload)))
     (cond
       ((or help (null name)) (print-help))
+      (version (print-version))
       (t
        (format t "Creating formula for ~S...~%" name)
 
