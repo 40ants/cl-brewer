@@ -1,8 +1,8 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for common lisp applications"
   homepage "https://github.com/svetlyak40wt/cl-brewer"
-  url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.7.0.tar.gz"
-  sha256 "823bc261aa7f01e2c73cfc59cbae7cac28070921214400fc9e1cdea396fe96c4"
+  url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.8.0.tar.gz"
+  sha256 "f25eadad2c1fcc2f3d3401ecc4968a5443fd6fbf353c0805f4b2a4b7ffd2fdf5"
   head NIL
 
   depends_on "sbcl"
@@ -79,8 +79,8 @@ class ClBrewer < Formula
   end
 
   resource "sharplispers-ironclad" do
-    url "http://dist.ultralisp.org/ultralisp/archive/s/sharplispers-ironclad-20190713195502.tgz"
-    sha256 "fe749dfb07c1c46e7de680672e373557110a3d8775e73499a5f6ffb7ff11f098"
+    url "http://dist.ultralisp.org/ultralisp/archive/s/sharplispers-ironclad-20190915050121.tgz"
+    sha256 "e5c7c0127c0096d1595307043a77df1d514577492415f26ee3b9f19e3c68ac0b"
   end
 
   resource "sharplispers-nibbles" do
