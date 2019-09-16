@@ -4,6 +4,7 @@
 
 * Now cl-brewer suppress debug output of the Deploy's startup process.
 * Added a `--version` command line option.
+* Fixed creation of dist, local-projects and tmp in the current directory.
 
 ## 0.7.0 (2019-09-11)
 

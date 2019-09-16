@@ -5,4 +5,4 @@
 ("ultralisp" .
  (:class qlot.source.ql:source-ql-all
   :initargs (:distribution "http://dist.ultralisp.org" :%version :latest)
-  :version "20190904101505"))
+  :version "20190916150504"))
