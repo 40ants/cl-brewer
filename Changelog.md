@@ -1,5 +1,64 @@
 # Changelog
 
+## 0.8.0 (2019-09-12)
+
+* Now cl-brewer suppress debug output of the Deploy's startup process.
+* Added a `--version` command line option.
+* Fixed creation of dist, local-projects and tmp in the current directory.
+
+## 0.7.0 (2019-09-11)
+
+* Added a generic `get-implicit-dependencies` which can be used to specify additional dependencies for systems
+  when asdf is not possible to figure them out. It can be used like that:
+  
+  ```
+  (defmethod cl-brewer:get-implicit-dependencies ((system-name (eql :cl-unicode)))
+      :flexi-streams)
+  ```
+
+  It can return a single keyword or a list of keywords.
+
+## 0.6.0
+
+* Now cl-brewer can be installed from the Homebrew tap as a binary.
+
+## 0.5.6
+
+* Fixed arguments list in buildapp's entrypoint.
+
+## 0.5.5
+
+* Fixed a bug in preloading code on buildapp.
+
+## 0.5.4
+
+* Added support for ``--preload`` option.
+  It allows to embedd Quicklisp client when building a binary for a homebrew.
+
+## 0.5.3
+
+* More diagnostics to understand why does not work a binary built by homebrew.
+
+## 0.5.2
+
+* Added an entry point for buildapp.
+
+## 0.5.1
+
+* Kickstarting quicklisp cliend when building cl-brewer.
+
+## 0.5.0
+
+* Now cl-brewer can work with package-inferred asdf systems.
+* Previously, some archives were included more than once because
+  they contains multiple systems. Now this is fixed.
+* Added option `--compress-core`. It reduces size of a simple
+  "hello world" from 52M to 13M.
+* Function `cl-brewer::create-formula` was made external and now
+  can accept system name as a symbol.
+* Function `cl-brewer::save-formula` was made external.
+* ASDF option `defsystem-depends-on` was supported.
+
 ## 0.4.0
 
 * 2016-12-17 Provide a way to skip some systems if not found by quicklisp. Right now it's only sb-introspect

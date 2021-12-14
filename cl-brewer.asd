@@ -1,29 +1,25 @@
-#|
-This file is a part of cl-brewer project.
-|#
-
-(in-package :cl-user)
-(defpackage cl-brewer2-asd
-  (:use :cl :asdf))
-(in-package :cl-brewer2-asd)
-
 (defsystem cl-brewer
   :description "Homebrew formula builder for common lisp applications"
   :author "Dmitry Petrov <dpetroff@gmail.com>"
-  :version "0.4.0"
+  :version "0.8.0"
   :license "Public Domain"
-  :depends-on (#:quicklisp
-               #:ironclad
-               #:command-line-arguments
-               #:trivial-download)
+  :homepage "https://github.com/svetlyak40wt/cl-brewer"
+  
+  :build-operation "program-op"
+  :build-pathname "cl-brewer"
+  :entry-point "cl-brewer::asdf-main"
+  
+  :depends-on ("quicklisp"
+               "alexandria"
+               "ironclad"
+               "command-line-arguments"
+               "trivial-download")
   :components ((:module "src"
                 :components
-                (
-                 (:file "package")
+                ((:file "package")
                  (:file "utils")
                  (:file "formula")
-                 (:file "main")
-                 )))
+                 (:file "main"))))
   :long-description
   #.(with-open-file (stream (merge-pathnames
                              #p"README.md"

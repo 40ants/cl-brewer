@@ -36,6 +36,12 @@ Here is an [example formula](https://github.com/can3p/homebrew-cl-journal/blob/m
 ## Install
 
 ```
+brew tap svetlyak40wt/cl-brewer https://github.com/svetlyak40wt/cl-brewer
+```
+
+Or you can install it using Roswell:
+
+```
 # install roswell and sbcl before
 $ ros install can3p/cl-brewer
 ```
@@ -46,6 +52,50 @@ $ ros install can3p/cl-brewer
 ```
 $ cl-brewer <your-system-name> # will emit <your-system-name>.rb file in current folder
 ```
+
+## Building a formula for cl-brewer
+
+To kickstart a cl-brewer and to create a formula for itself, load it in the REPL and do like that:
+
+```
+CL-USER> (cl-brewer:create-formula :cl-brewer)
+#<BUILDAPP-FORMULA "cl-brewer" depends on 23 systems>
+
+CL-USER> (cl-brewer:save-formula * "cl-brewer"
+                                 :entry-point "cl-brewer::buildapp-main"
+                                 :preload (list "quicklisp-starter"))
+
+CL-USER> (cl-brewer:save-formula * "cl-brewer"
+                                 :entry-point "cl-brewer::buildapp-main"
+                                 :preload (list "quicklisp-starter"))
+Downloading "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.5.tar.gz" (Unknown size)
+NIL
+```
+
+However, in most cases you can just install cl-brewer from the Homebrew. In this case,
+you can update `cl-brewer's` formula with this command:
+
+    qlot exec cl-brewer \
+              --preload quicklisp-starter \
+              --main cl-brewer::buildapp-main \
+              cl-brewer
+
+## How to install cl-brewer (or any other project) from a local formula
+
+Replace url line in a formula:
+
+    url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.6.tar.gz"
+
+with two lines like this:
+
+    url File.dirname(__FILE__), :using => :git
+    version "0.5.6-rc1"
+    
+Next, do this in the shell:
+
+    HOMEBREW_NO_AUTO_UPDATE=1 brew install --debug --verbose ./*.rb
+
+it should build and install `cl-brewer`.
 
 ## Contribute
 
