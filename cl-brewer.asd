@@ -1,11 +1,12 @@
 (defsystem cl-brewer
   :description "Homebrew formula builder for common lisp applications"
   :author "Dmitry Petrov <dpetroff@gmail.com>"
-  :version "0.8.1"
+  :version "0.8.2"
   :license "Public Domain"
   :homepage "https://github.com/40ants/cl-brewer"
-  
-  :build-operation "program-op"
+
+  :defsystem-depends-on ("deploy")
+  :build-operation "deploy-op"
   :build-pathname "cl-brewer"
   :entry-point "cl-brewer::asdf-main"
   
