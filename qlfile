@@ -1,5 +1,3 @@
 dist ultralisp http://dist.ultralisp.org
 
-ql :all :latest
-ultralisp :all :latest
 
