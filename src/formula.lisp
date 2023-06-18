@@ -298,6 +298,7 @@ Each returned system should be possible to find with ql-dist:find-system.")
                                  &allow-other-keys)
   (declare (ignorable entry-point))
   (let ((evals (list "(asdf:load-system :deploy)"
+                     "(push :deploy-console *features*)"
                      "(require :asdf)")))
     (format stream
             "
@@ -307,7 +308,7 @@ Each returned system should be possible to find with ql-dist:find-system.")
       (push (format nil "(handler-case (asdf:load-system :~A) (error () (uiop:quit 1)))" item)
             evals))
 
-    (push (format nil "(handler-case (progn (setf deploy:*status-output* nil) (asdf:make :~A)) (error () (uiop:quit 1)))"
+    (push (format nil "(handler-case (asdf:make :~A) (error () (uiop:quit 1)))"
                   (name formula))
           evals)
 

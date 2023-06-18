@@ -36,14 +36,15 @@ Here is an [example formula](https://github.com/can3p/homebrew-cl-journal/blob/m
 ## Install
 
 ```
-brew tap svetlyak40wt/cl-brewer https://github.com/svetlyak40wt/cl-brewer
+brew tap 40ants/soft
+brew install cl-brewer
 ```
 
 Or you can install it using Roswell:
 
 ```
 # install roswell and sbcl before
-$ ros install can3p/cl-brewer
+$ ros install 40ants/cl-brewer
 ```
 
 
@@ -68,7 +69,7 @@ CL-USER> (cl-brewer:save-formula * "cl-brewer"
 CL-USER> (cl-brewer:save-formula * "cl-brewer"
                                  :entry-point "cl-brewer::buildapp-main"
                                  :preload (list "quicklisp-starter"))
-Downloading "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.5.tar.gz" (Unknown size)
+Downloading "https://github.com/40ants/cl-brewer/archive/v0.5.5.tar.gz" (Unknown size)
 NIL
 ```
 
@@ -84,7 +85,7 @@ you can update `cl-brewer's` formula with this command:
 
 Replace url line in a formula:
 
-    url "https://github.com/svetlyak40wt/cl-brewer/archive/v0.5.6.tar.gz"
+    url "https://github.com/40ants/cl-brewer/archive/v0.5.6.tar.gz"
 
 with two lines like this:
 
