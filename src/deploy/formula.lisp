@@ -80,7 +80,7 @@
     ;; be symlinked to the /opt/homebrew/bin nor /opt/homebrew/lib
     (format stream "
 
-    system \"bash\", \"-c\", \"mkdir dyn-libs && mv bin/*.dylib dyn-libs/\"
+    system \"bash\", \"-c\", \"mkdir dyn-libs && find bin/ -name '*.dylib' -exec mv '{}' dyn-libs/ \\\\;\"
 ")
   
     (format stream

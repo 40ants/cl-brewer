@@ -4,7 +4,7 @@
   '(
     (("main" #\m) :type string
                   :optional t
-                  :documentation "Specify an entrypoint for a system. Default is main function in a package with system's name")
+                  :documentation "Specify an entrypoint for a system. If system uses Deploy, then entrypoint is determined automatically from ASDF system definition. Otherwise, default is main function in a package with system's name.")
     (("preload" #\p) :type string
                      :optional t
                      :documentation "A comma-separated list of system names to preload before starting a build.")

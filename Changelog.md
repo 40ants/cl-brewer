@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1 (2023-07-14)
+
+Fixed an error happened in case if program does not have any dynamic libs to install into the Cellar.
+
 ## 0.9.0 (2023-07-14)
 
 Now when using Deploy, dynamic libraries copied into the libexec
