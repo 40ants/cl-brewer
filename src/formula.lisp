@@ -303,6 +303,11 @@ Each returned system should be possible to find with ql-dist:find-system.")
    (name formula)))
 
 
+(defun home-page (formula)
+  (or (asdf:system-homepage (root-system formula))
+      ""))
+
+
 (defun url (formula)
   (let* ((system (root-system formula))
          (version (asdf:component-version system)))

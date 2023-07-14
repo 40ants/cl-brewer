@@ -1,7 +1,7 @@
 (defsystem cl-brewer
   :description "Homebrew formula builder for common lisp applications"
   :author "Dmitry Petrov <dpetroff@gmail.com>"
-  :version "0.8.2"
+  :version "0.9.0"
   :license "Public Domain"
   :homepage "https://github.com/40ants/cl-brewer"
   :source-control (:git "https://github.com/40ants/cl-brewer")

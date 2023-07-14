@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.0 (2023-07-14)
+
+Now when using Deploy, dynamic libraries copied into the libexec
+folder inside Cellar and not symlinked into the /ope/homebrew/bin folder.
+
+Also, dynamic libraries provided by other Homebrew formulas are not
+copied into the Cellar, instead these formulas are listed as a dependency
+of the formula, created by cl-homebrew.
+
 ## 0.8.0 (2019-09-12)
 
 * Now cl-brewer suppress debug output of the Deploy's startup process.
