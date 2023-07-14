@@ -71,11 +71,7 @@ Each returned system should be possible to find with ql-dist:find-system.")
 
 
 (defmethod create-formula (system)
-  (let* ((deps (append (asdf:system-depends-on system)
-                       ;; We also need to include build dependencies
-                       ;; into the system.
-                       (asdf:system-defsystem-depends-on system)))
-         (build-operation (asdf/component:component-build-operation system))
+  (let* ((build-operation (asdf/component:component-build-operation system))
          ;; We support Buildapp or Shinmera's Deploy as a build systems.
          ;; 
          ;; TODO: Probably we also should search and build any Roswell scripts,
@@ -86,6 +82,14 @@ Each returned system should be possible to find with ql-dist:find-system.")
                    'deploy-formula)
                   (t
                    'buildapp-formula)))
+         (deps (append (asdf:system-depends-on system)
+                       ;; We also need to include build dependencies
+                       ;; into the system.
+                       (asdf:system-defsystem-depends-on system)
+                       (when (eql class 'deploy-formula)
+                         ;; We need this system because these hooks
+                         ;; restore path to dynamic libs:
+                         (list "cl-brewer/deploy/hooks"))))
          (root-primary-name (asdf:primary-system-name system))
          (existing-systems)
          (missing-systems))
@@ -190,14 +194,25 @@ Each returned system should be possible to find with ql-dist:find-system.")
     (format stream "  end~%")))
 
 
+(defgeneric env-vars (formula)
+  (:documentation "Should return an alist with environment variables for \"install\" method of the formula.")
+  (:method ((formula formula))
+    (list
+     (cons "CL_SOURCE_REGISTRY"
+           "#{buildpath}/lib//:#{buildpath}//")
+     (cons "ASDF_OUTPUT_TRANSLATIONS"
+           "/:/"))))
+
+
 (defgeneric print-env-vars (formula &key stream)
   (:documentation "Outputs environment variables for \"install\" method of the formula.")
+  (:method :before ((formula formula) &key (stream t))
+    (terpri stream))
   (:method ((formula formula) &key (stream t))
-    (format stream
-            "
-    ENV[\"CL_SOURCE_REGISTRY\"] = \"#{buildpath}/lib//:#{buildpath}//\"
-    ENV[\"ASDF_OUTPUT_TRANSLATIONS\"] = \"/:/\"
-")))
+    (loop for (key . value) in (env-vars formula)
+          do (format stream
+                     "    ENV[\"~A\"] = \"~A\"~%"
+                     key value))))
 
 
 (defgeneric print-build-commands (formula &key stream entry-point preload
@@ -228,34 +243,6 @@ Each returned system should be possible to find with ql-dist:find-system.")
               (format nil "~a.main" (name formula))
               entry-point)
           (name formula)))
-
-
-(defmethod print-build-commands ((formula deploy-formula)
-                                 &key (stream t) entry-point preload
-                                 &allow-other-keys)
-  (declare (ignorable entry-point))
-  (let ((evals (list "(asdf:load-system :deploy)"
-                     "(push :deploy-console *features*)"
-                     "(require :asdf)")))
-    (format stream
-            "
-    system \"sbcl\"")
-  
-    (dolist (item (alexandria:ensure-list preload))
-      (push (format nil "(handler-case (asdf:load-system :~A) (error () (uiop:quit 1)))" item)
-            evals))
-
-    (push (format nil "(handler-case (asdf:make :~A) (error () (uiop:quit 1)))"
-                  (name formula))
-          evals)
-
-    (loop for eval in (reverse evals)
-          do (format stream ", \"--eval\", \"~A\"" eval))
-  
-    (format stream
-            "
-    bin.install Dir[\"bin/*\"]
-")))
 
 
 (defgeneric print-header (formula &key stream)

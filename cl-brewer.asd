@@ -22,7 +22,10 @@
                 ((:file "package")
                  (:file "utils")
                  (:file "formula")
-                 (:file "main"))))
+                 (:file "main")
+                 (:module "deploy"
+                  :components
+                  ((:file "formula"))))))
   :long-description
   #.(with-open-file (stream (merge-pathnames
                              #p"README.md"
@@ -39,7 +42,7 @@
 
 
 
-(defsystem "cl-brewer/deploy"
+(defsystem "cl-brewer/deploy/hooks"
   :description "Hooks for making Shinmera's Deploy work with Homebrew."
   :author "Alexander Artemenko <svetlyak.40wt@gmail.com>"
   :version "0.8.2"
@@ -51,4 +54,6 @@
                "cffi")
   :components ((:module "src"
                 :components
-                ((:file "deploy-hooks")))))
+                ((:module "deploy"
+                  :components
+                  ((:file "hooks")))))))
