@@ -1,8 +1,8 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for common lisp applications"
   homepage "https://github.com/40ants/cl-brewer"
-  url "https://github.com/40ants/cl-brewer/archive/v0.9.0.tar.gz"
-  sha256 "e52563668424b95f8c4c01c4da3db6ae9451cdb192073181266a2bfe6280c990"
+  url "https://github.com/40ants/cl-brewer/archive/v0.9.1.tar.gz"
+  sha256 "38ee7640bca7b015a103b61d8303ed665217bc55ff24fffb5594f8f9e25041a8"
   head "https://github.com/40ants/cl-brewer"
 
   depends_on "sbcl" => :build
@@ -162,7 +162,7 @@ class ClBrewer < Formula
 
     system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer/deploy/hooks)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error () (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error () (uiop:quit 1)))"
 
-    system "bash", "-c", "mkdir dyn-libs && mv bin/*.dylib dyn-libs/"
+    system "bash", "-c", "mkdir dyn-libs && find bin/ -name '*.dylib' -exec mv '{}' dyn-libs/ \\;"
 
     bin.install Dir["bin/*"]
     libexec.install Dir["dyn-libs/*"]
