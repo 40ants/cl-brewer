@@ -1,26 +1,35 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for common lisp applications"
   homepage "https://github.com/40ants/cl-brewer"
-  url "https://github.com/40ants/cl-brewer/archive/v0.8.1.tar.gz"
-  sha256 "46f3ee8ebd869075d2d9662ee5a062fb4f5e7d37057a23f41951b7a9258c19b0"
-  head NIL
+  url "https://github.com/40ants/cl-brewer/archive/v0.8.2.tar.gz"
+  sha256 "9c294e9a3b837c8865653ca8a892b84487a99692a21c75129b077d027d628576"
+  head "https://github.com/40ants/cl-brewer"
 
   depends_on "sbcl"
-  depends_on "buildapp" => :build
+
+  resource "40ants-40ants-asdf-system" do
+    url "http://dist.ultralisp.org/archive/1825/40ants-40ants-asdf-system-20230210163819.tgz"
+    sha256 "3d733cc66520132ce0743ca2b363e1806c0311c8fb128e77d8af0ef0fb8638ee"
+  end
+
+  resource "40ants-cl-plus-ssl-osx-fix" do
+    url "http://dist.ultralisp.org/archive/1962/40ants-cl-plus-ssl-osx-fix-20230618185126.tgz"
+    sha256 "f26673e427545bfc7affae80d14d74a78c6b5f17b1a68d4a38c6223e894f92bb"
+  end
 
   resource "alexandria" do
-    url "http://beta.quicklisp.org/archive/alexandria/2022-07-07/alexandria-20220707-git.tgz"
-    sha256 "8e6173120de8786c7ae0fefba8102d82620fac42e9aade954af9135e0870d6b1"
+    url "http://beta.quicklisp.org/archive/alexandria/2023-06-18/alexandria-20230618-git.tgz"
+    sha256 "d5fbb349204082b61a7a6c58aed1d1606e524bfa38ecd0ec6ebed7f658061819"
   end
 
   resource "cffi" do
-    url "http://beta.quicklisp.org/archive/cffi/2023-02-14/cffi-20230214-git.tgz"
-    sha256 "cffcb66a21a0d126c6f7f835f151b86176d57b70e2d16ec2e546ba3ac74b39cd"
+    url "http://beta.quicklisp.org/archive/cffi/2023-06-18/cffi-20230618-git.tgz"
+    sha256 "223f9fa6f1c50df1a8d5b7db0d02c520a4454965ed1a996cf5a6d20f447058c3"
   end
 
   resource "cl+ssl" do
-    url "http://beta.quicklisp.org/archive/cl+ssl/2023-02-14/cl+ssl-20230214-git.tgz"
-    sha256 "910718552c6f84a76681f39b8402c36a74d484bba217e2732f213d4b9e264581"
+    url "http://beta.quicklisp.org/archive/cl+ssl/2023-06-18/cl+ssl-20230618-git.tgz"
+    sha256 "c5653c3d96b169003a386628cf0c92aaf256ba27377f569fe45e4e1012c80343"
   end
 
   resource "cl-babel-babel" do
@@ -74,8 +83,8 @@ class ClBrewer < Formula
   end
 
   resource "quicklisp-quicklisp-client" do
-    url "http://dist.ultralisp.org/archive/1254/quicklisp-quicklisp-client-20221213010143.tgz"
-    sha256 "9d1432aa6b1f5153872b165c6fa5ae263e22e769197ce1e5336c5a09f6373796"
+    url "http://dist.ultralisp.org/archive/1254/quicklisp-quicklisp-client-20210216010650.tgz"
+    sha256 "d8e39e878da43e54ea69194c075da371e57c7c76f01000d541dc43e3c3ee6721"
   end
 
   resource "sharplispers-chipz" do
@@ -91,6 +100,21 @@ class ClBrewer < Formula
   resource "sharplispers-split-sequence" do
     url "http://dist.ultralisp.org/archive/273/sharplispers-split-sequence-20211208061629.tgz"
     sha256 "98c27530444a65fcdc71f2dc539a252efa977f1a2ebfd6a0453ddfa572ca1d83"
+  end
+
+  resource "Shinmera-deploy" do
+    url "http://dist.ultralisp.org/archive/858/Shinmera-deploy-20230614113440.tgz"
+    sha256 "c44a274d01c2f0c34369b4576bf33c500e3024f749eae7ac14b6deef4b12a43f"
+  end
+
+  resource "Shinmera-documentation-utils" do
+    url "http://dist.ultralisp.org/ultralisp/archive/S/Shinmera-documentation-utils-20190627101653.tgz"
+    sha256 "f2a238459c2a91032af093487e8237b38c321eae2c656c23558b711f6bc90815"
+  end
+
+  resource "Shinmera-trivial-indent" do
+    url "http://dist.ultralisp.org/archive/193/Shinmera-trivial-indent-20230221065556.tgz"
+    sha256 "5e66aa163143828c8b2a89bb0bb4f4c00003e7a09b9a291c86eeb9a4c2b957c4"
   end
 
   resource "sionescu-bordeaux-threads" do
@@ -114,13 +138,13 @@ class ClBrewer < Formula
   end
 
   resource "uiop" do
-    url "http://beta.quicklisp.org/archive/uiop/2022-11-06/uiop-3.3.6.tgz"
+    url "http://beta.quicklisp.org/archive/uiop/2023-06-18/uiop-3.3.6.tgz"
     sha256 "302acb92b985b4b44a2ae2bdcc0d385084138c17acaf2cdc7ed2dc155172ec70"
   end
 
   resource "usocket" do
-    url "http://beta.quicklisp.org/archive/usocket/2022-11-06/usocket-0.8.5.tgz"
-    sha256 "aef6f5b4b9232cf422a05e3f958e1d85a6d9ad1a6f05b1833598a96f3c215c2c"
+    url "http://beta.quicklisp.org/archive/usocket/2023-06-18/usocket-0.8.6.tgz"
+    sha256 "33b94a7d3b2258bf6f06fbc52560dfbc3d2d8dd87ef407bfb18f10c40b17eb6e"
   end
 
   def install
@@ -131,8 +155,7 @@ class ClBrewer < Formula
     ENV["CL_SOURCE_REGISTRY"] = "#{buildpath}/lib//:#{buildpath}//"
     ENV["ASDF_OUTPUT_TRANSLATIONS"] = "/:/"
 
-    system "buildapp", "--compress-core", "--load-system", "cl-brewer", "--output", "cl-brewer", "--entry", "cl-brewer.main"
-
-    bin.install "cl-brewer"
+    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :deploy)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error () (uiop:quit 1)))", "--eval", "(handler-case (asdf:load-system :cl-plus-ssl-osx-fix) (error () (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error () (uiop:quit 1)))"
+    bin.install Dir["bin/*"]
   end
 end

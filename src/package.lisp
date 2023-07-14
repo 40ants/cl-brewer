@@ -1,7 +1,6 @@
-(in-package :cl-user)
-
-(defpackage cl-brewer
-  (:use :cl :command-line-arguments)
+(defpackage #:cl-brewer
+  (:use #:cl
+        #:command-line-arguments)
   (:import-from #:alexandria
                 #:make-keyword)
   (:export #:main
@@ -9,8 +8,8 @@
            #:save-formula
            #:get-implicit-dependencies
            #:formula))
+(in-package #:cl-brewer)
 
-(in-package :cl-brewer)
 
 (defclass formula ()
   ((root-system

@@ -28,7 +28,9 @@ At the moment several assumptions were made:
 * Formula is generated for the system available for asdf
 * All dependencies should be available via quicklisp
 * System source code should live on github all releases should be tagged with vX.Y.Z scheme
-* System should have description, version, homepage fields defined
+* System should have description, version, homepage fields defined. Project at GitHub should have a tag corresponding to the
+  current system version. GitHub build a tar.gz archive with sources of the tagged revision and this way a formula,
+  created by cl-brewer, will be able to fetch sources, corresponding to the version.
 * Buildapp calls main function. By default namespace is default to system name but can be overridden with option
 
 Here is an [example formula](https://github.com/can3p/homebrew-cl-journal/blob/master/cl-journal.rb)

@@ -22,7 +22,15 @@
         collect (subseq string i j)
         while j))
 
+
+(defun startswith (prefix string)
+  (and (<= (length prefix)
+           (length string))
+       (string-equal prefix
+                     string
+                     :end2 (length prefix))))
+
 (defun rubyize-name (name)
   (apply #'concatenate 'string
-               (mapcar #'(lambda (str) (string-capitalize str :start 0 :end 1))
-                       (split-string (substitute #\- #\/ name) #\-))))
+         (mapcar #'(lambda (str) (string-capitalize str :start 0 :end 1))
+                 (split-string (substitute #\- #\/ name) #\-))))

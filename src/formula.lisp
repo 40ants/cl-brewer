@@ -1,32 +1,5 @@
-(in-package cl-brewer)
+(in-package #:cl-brewer)
 
-
-(defparameter +formula-body+ "~:
-class ~a < Formula
-  desc ~S
-  homepage ~S
-  url ~S
-  sha256 ~S
-  head ~S
-
-  depends_on \"sbcl\"
-  depends_on \"buildapp\" => :build
-
-~{~a~^~%~}
-
-  def install
-    resources.each do |resource|
-      resource.stage buildpath/\"lib\"/resource.name
-    end
-
-    ENV[\"CL_SOURCE_REGISTRY\"] = \"#{buildpath}/lib//:#{buildpath}//\"
-    ENV[\"ASDF_OUTPUT_TRANSLATIONS\"] = \"/:/\"
-    system \"buildapp\", \"--compress-core\", \"--load-system\", \"~A\", \"--output\", \"~A\", \"--entry\", \"~A\"
-
-    bin.install ~S
-  end
-end
-")
 
 (defparameter +formula-header+ "~:
 class ~a < Formula
@@ -42,48 +15,12 @@ end
 ")
 
 
-;; (defparameter +formula-body2+ "class {{ name }} < Formula
-;;   desc \"{{ desc }}\"
-;;   homepage \"{{ homepage }}\"
-;;   url \"{{ url }}\"
-;;   sha256 \"{{ sha256 }}\"
-;;   head \"{{ head }}\"
-
-;;   depends_on \"sbcl\"
-;;   {{# use-buildapp }}
-;;   depends_on \"buildapp\" => :build
-;;   {{/ use-buildapp }}
-
-;;   {{# releases }}
-;;   {{ text }}
-;;   {{/ releases }}
-
-;;   def install
-;;     resources.each do |resource|
-;;       resource.stage buildpath/\"lib\"/resource.name
-;;     end
-
-;;     ENV[\"CL_SOURCE_REGISTRY\"] = \"#{buildpath}/lib//:#{buildpath}//\"
-;;     ENV[\"ASDF_OUTPUT_TRANSLATIONS\"] = \"/:/\"
-;;     system \"buildapp\", \"--compress-core\", \"--load-system\", \"~A\", \"--output\", \"~A\", \"--entry\", \"~A\"
-
-;;     bin.install ~S
-;;   end
-;; end
-;; ")
-
 (defparameter +dependency-body+ "~:
   resource ~S do
     url ~S
     sha256 ~S
   end~%~%")
 
-(defparameter +dependency-body2+ "  resource \"{{name}}\" do
-    url \"{{url}}\"
-    sha256 \"{{sha256}}\"
-  end
-
-")
 
 ;; we skip systems that we know for sure are available
 (defparameter +whitelisted-systems+ '("asdf" "sb-introspect"))
@@ -277,7 +214,7 @@ Each returned system should be possible to find with ql-dist:find-system.")
           "
     system \"buildapp\", \"--compress-core\", ")
   
-  (dolist (item preload)
+  (dolist (item (alexandria:ensure-list preload))
     (format stream "\"--load-system\", \"~A\", " item))
   
   (format stream
@@ -304,7 +241,7 @@ Each returned system should be possible to find with ql-dist:find-system.")
             "
     system \"sbcl\"")
   
-    (dolist (item preload)
+    (dolist (item (alexandria:ensure-list preload))
       (push (format nil "(handler-case (asdf:load-system :~A) (error () (uiop:quit 1)))" item)
             evals))
 
@@ -344,7 +281,7 @@ Each returned system should be possible to find with ql-dist:find-system.")
     (call-next-method)
     (format stream "~%"))
   (:method ((formula formula) &key (stream t))
-    (format stream "  depends_on \"sbcl\"~%")))
+    (format stream "  depends_on \"sbcl\" => :build~%")))
 
 
 (defmethod print-dependencies :after ((formula buildapp-formula) &key (stream t))
@@ -357,25 +294,46 @@ Each returned system should be possible to find with ql-dist:find-system.")
 (defun description (formula)
   (asdf::component-description (root-system formula)))
 
-(defun home-page (formula)
-  (asdf:system-homepage (root-system formula)))
+
+(defun ensure-github-url (url formula-name)
+  (cond
+    ((null url)
+     (error "Please set :source-control or :homepage in the ~A.asd file. It should point to the GitHub project."
+            formula-name))
+    ((startswith "https://github.com/" url)
+     url)
+    (t
+     (error "Please set :source-control or :homepage in the ~A.asd file. It should point to the GitHub project. Right now it is ~S."
+            formula-name
+            url))))
+
+
+(defun github-page (formula)
+  (ensure-github-url
+   (or (getf (asdf:system-source-control  (root-system formula))
+             :git)
+       (asdf:system-homepage (root-system formula)))
+   (name formula)))
+
 
 (defun url (formula)
   (let* ((system (root-system formula))
-         (version (asdf:component-version system))
-         (home (home-page formula)))
-    (unless home
-      (error "Please set :homepage in the ~A.asd file. It should point to the GitHub project."
-             (name formula)))
+         (version (asdf:component-version system)))
     
     (unless version
       (error "Unable to determine a version of ~A. Ensure you have a :version in your system's definition."
              system))
     (concatenate 'string
-                 home
+                 (github-page formula)
                  "/archive/v"
                  version
                  ".tar.gz")))
 
 (defun repo-head (formula)
-  (asdf:system-source-control (root-system formula)))
+  (let ((source (asdf:system-source-control (root-system formula))))
+    (typecase source
+      (string source)
+      ;; Other VCS aren't supported yet.
+      ;; Feel free to add and make a PR:
+      (list (or (getf source :git)
+                "")))))
