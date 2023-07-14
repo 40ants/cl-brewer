@@ -1,11 +1,15 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for common lisp applications"
   homepage "https://github.com/40ants/cl-brewer"
-  url "https://github.com/40ants/cl-brewer/archive/v0.8.2.tar.gz"
-  sha256 "9c294e9a3b837c8865653ca8a892b84487a99692a21c75129b077d027d628576"
+  url "https://github.com/40ants/cl-brewer/archive/v0.9.0.tar.gz"
+  sha256 "e52563668424b95f8c4c01c4da3db6ae9451cdb192073181266a2bfe6280c990"
   head "https://github.com/40ants/cl-brewer"
 
-  depends_on "sbcl"
+  depends_on "sbcl" => :build
+  # required by: CL+SSL/CONFIG::LIBCRYPTO and CL+SSL/CONFIG::LIBSSL
+  depends_on "openssl@3"
+  # required by: DEPLOY::COMPRESSION-LIB
+  depends_on "zstd"
 
   resource "40ants-40ants-asdf-system" do
     url "http://dist.ultralisp.org/archive/1825/40ants-40ants-asdf-system-20230210163819.tgz"
@@ -93,8 +97,8 @@ class ClBrewer < Formula
   end
 
   resource "sharplispers-ironclad" do
-    url "http://dist.ultralisp.org/archive/655/sharplispers-ironclad-20230617153333.tgz"
-    sha256 "b0d7f107cbbeb5c9a55d362210b81a4e2ec126c460891618032c5250f206a006"
+    url "http://dist.ultralisp.org/archive/655/sharplispers-ironclad-20230710201532.tgz"
+    sha256 "769001a6509105daa01df15427ca28147c8c59249a2a69ff0f94ca5a98335442"
   end
 
   resource "sharplispers-split-sequence" do
@@ -103,18 +107,18 @@ class ClBrewer < Formula
   end
 
   resource "Shinmera-deploy" do
-    url "http://dist.ultralisp.org/archive/858/Shinmera-deploy-20230614113440.tgz"
-    sha256 "c44a274d01c2f0c34369b4576bf33c500e3024f749eae7ac14b6deef4b12a43f"
+    url "http://dist.ultralisp.org/archive/858/Shinmera-deploy-20230710201211.tgz"
+    sha256 "1ad782e17010c250f69965b514add3cc5fffa3fddba3066c9d062007905c462b"
   end
 
   resource "Shinmera-documentation-utils" do
-    url "http://dist.ultralisp.org/ultralisp/archive/S/Shinmera-documentation-utils-20190627101653.tgz"
-    sha256 "f2a238459c2a91032af093487e8237b38c321eae2c656c23558b711f6bc90815"
+    url "http://dist.ultralisp.org/archive/843/Shinmera-documentation-utils-20230711001755.tgz"
+    sha256 "e8d287de786216763a2fafbc7d18da539b7a124497b8529f066c33f0148f2182"
   end
 
   resource "Shinmera-trivial-indent" do
-    url "http://dist.ultralisp.org/archive/193/Shinmera-trivial-indent-20230221065556.tgz"
-    sha256 "5e66aa163143828c8b2a89bb0bb4f4c00003e7a09b9a291c86eeb9a4c2b957c4"
+    url "http://dist.ultralisp.org/archive/193/Shinmera-trivial-indent-20230710204252.tgz"
+    sha256 "7b4c8b6db7250fb2794a79967fcb5c0410146b206233e43227b708d92d3ec944"
   end
 
   resource "sionescu-bordeaux-threads" do
@@ -128,13 +132,13 @@ class ClBrewer < Formula
   end
 
   resource "trivial-garbage-trivial-garbage" do
-    url "http://dist.ultralisp.org/archive/195/trivial-garbage-trivial-garbage-20211229223228.tgz"
-    sha256 "d828515970e9d6e70f6307dbd3a7da67b523e5c76be3473c65ad1bdf48eaaee7"
+    url "http://dist.ultralisp.org/archive/195/trivial-garbage-trivial-garbage-20230621104435.tgz"
+    sha256 "debc94633569e61b4f12fbee52b127b4234385795e0dd2dde9099925a5ab66cd"
   end
 
   resource "trivial-gray-streams-trivial-gray-streams" do
-    url "http://dist.ultralisp.org/archive/194/trivial-gray-streams-trivial-gray-streams-20210118211457.tgz"
-    sha256 "5f9e8264e4bae7febcb11237d117a50fa061ea46535570475e9df0da5532db47"
+    url "http://dist.ultralisp.org/archive/194/trivial-gray-streams-trivial-gray-streams-20230630171731.tgz"
+    sha256 "52883684b77d874de095dd56752dda1226a54030b5ede28a3ae71de0ee93e284"
   end
 
   resource "uiop" do
@@ -152,10 +156,15 @@ class ClBrewer < Formula
       resource.stage buildpath/"lib"/resource.name
     end
 
+    ENV["LIBEXEC_PATH"] = "#{libexec}/"
     ENV["CL_SOURCE_REGISTRY"] = "#{buildpath}/lib//:#{buildpath}//"
     ENV["ASDF_OUTPUT_TRANSLATIONS"] = "/:/"
 
-    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :deploy)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error () (uiop:quit 1)))", "--eval", "(handler-case (asdf:load-system :cl-plus-ssl-osx-fix) (error () (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error () (uiop:quit 1)))"
+    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer/deploy/hooks)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error () (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error () (uiop:quit 1)))"
+
+    system "bash", "-c", "mkdir dyn-libs && mv bin/*.dylib dyn-libs/"
+
     bin.install Dir["bin/*"]
+    libexec.install Dir["dyn-libs/*"]
   end
 end
