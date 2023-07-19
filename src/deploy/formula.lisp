@@ -64,7 +64,8 @@
     system \"sbcl\"")
   
     (dolist (item (alexandria:ensure-list preload))
-      (push (format nil "(handler-case (asdf:load-system :~A) (error () (uiop:quit 1)))" item)
+      (push (format nil "(handler-case (asdf:load-system :~A) (error () (format *error-output* \"~~A~~%\" e) (uiop:quit 1)))"
+                    item)
             evals))
 
     (push (format nil "(handler-case (asdf:make :~A) (error () (uiop:quit 1)))"
