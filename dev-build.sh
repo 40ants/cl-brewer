@@ -26,8 +26,7 @@ buildapp --compress-core \
          --load-system quicklisp-starter \
          --load-system slynk \
          --load-system cl-brewer \
-         --output cl-brewer \
-         --entry cl-brewer::buildapp-main
+         --output cl-brewer
 
 mv cl-brewer cl-brewer-buildapp
 

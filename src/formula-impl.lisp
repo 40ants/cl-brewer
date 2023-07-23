@@ -5,6 +5,10 @@
   (:import-from #:ironclad
                 #:digest-file
                 #:byte-array-to-hex-string)
+  ;; We need to use some symbols from this core
+  ;; package because they provide a core functionality
+  (:import-from #:cl-brewer/core
+                #:save-formula)
   (:import-from #:cl-brewer/formula
                 #:env-vars
                 #:print-dependencies

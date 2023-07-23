@@ -13,7 +13,6 @@
   :pathname "src"
   :depends-on ("cl-plus-ssl-osx-fix"
                "quicklisp"
-               "cl-brewer/core"
                "cl-brewer/buildapp/formula"
                "cl-brewer/deploy/formula"
                "cl-brewer/deploy/hooks"
@@ -21,6 +20,6 @@
 
   :build-operation "deploy-op"
   :build-pathname "cl-brewer"
-  :entry-point "cl-brewer/main::main"
+  :entry-point "cl-brewer/main::asdf-main"
 
   :in-order-to ((test-op (test-op "cl-brewer-tests"))))

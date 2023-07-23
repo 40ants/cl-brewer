@@ -182,9 +182,3 @@ Usage: cl-brewer [options] <system-name>~%~%" +version+)
   (apply #'main
          (uiop:command-line-arguments)))
 
-
-(defun buildapp-main (args)
-  ;; First item in args is a program's name
-  ;; we need to strip it first.
-  (apply #'main (cdr args)))
-

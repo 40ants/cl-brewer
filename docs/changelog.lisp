@@ -11,6 +11,8 @@
                               "52M"
                               "13M"
                               "HTTP"))
+  (0.10.3 2023-07-23
+          "* Fixed arguments parsing.")
   (0.10.2 2023-07-23
           "* Fixed how cl-brewer's version number is stored in the binary.")
   (0.10.1 2023-07-23

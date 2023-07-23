@@ -5,6 +5,12 @@
                 #:make-keyword)
   (:import-from #:cl-brewer/utils
                 #:startswith)
+  ;; We need to use some symbols from this core
+  ;; package because they provide a core functionality
+  (:import-from #:cl-brewer/core
+                #:formula
+                #:create-formula
+                #:get-implicit-dependencies)
   (:export #:define-quesser
            #:included-systems
            #:missing-systems
