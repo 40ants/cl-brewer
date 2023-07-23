@@ -28,19 +28,21 @@
                      :optional t
                      :documentation "Show program version")))
 
-(defvar +version+
-  #.(asdf:component-version
-     (asdf:find-system :cl-brewer)))
+
+(defun get-version ()
+  (asdf:component-version
+   (asdf:find-system :cl-brewer)))
 
 
 (defun print-help ()
   (format t "cl-brewer version ~a~%
-Usage: cl-brewer [options] <system-name>~%~%" +version+)
+Usage: cl-brewer [options] <system-name>~%~%" (get-version))
   (show-option-help +command-line-spec+ :sort-names t))
 
 
 (defun print-version ()
-  (format t "cl-brewer version ~a~%" +version+))
+  (format t "cl-brewer version ~a~%"
+          (get-version)))
 
 
 (defun split (text)
@@ -121,7 +123,8 @@ Usage: cl-brewer [options] <system-name>~%~%" +version+)
   (let ((name (car args))
         (preload (split preload)))
     (cond
-      (version (print-version))
+      (version
+       (print-version))
       ((or help (null name)) (print-help))
       (t
        (format t "Creating formula for ~S...~%" name)
@@ -144,9 +147,9 @@ Usage: cl-brewer [options] <system-name>~%~%" +version+)
             (handler-case (ql:quickload name :silent t)
               (asdf:missing-dependency (condition)
                 (let ((required-dependency
-                       (alexandria:make-keyword
-                        (string-upcase (asdf/find-component:missing-requires
-                                        condition)))))
+                        (alexandria:make-keyword
+                         (string-upcase (asdf/find-component:missing-requires
+                                         condition)))))
                   (format t "Loading ~A's depdendency: ~A~%"
                           name
                           required-dependency)
