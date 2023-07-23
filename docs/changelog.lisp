@@ -11,6 +11,8 @@
                               "52M"
                               "13M"
                               "HTTP"))
+  (0.10.0 2023-07-23
+          "* Library was refactored to use package-inferred system style. Also a new style documentation was added.")
   (0.9.1 2023-07-14
          "* Fixed an error happened in case if program does not have any dynamic libs to install into the Cellar.")
   (0.9.0 2023-07-14
