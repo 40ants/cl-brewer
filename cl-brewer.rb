@@ -1,8 +1,8 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for Common Lisp applications."
   homepage "https://40ants.com/cl-brewer/"
-  url "https://github.com/40ants/cl-brewer/archive/v0.10.2.tar.gz"
-  sha256 "54d79aa7ae3cba9e7d353945bac8d5bb5bdd35250390470c47d2dc406cb3423c"
+  url "https://github.com/40ants/cl-brewer/archive/v0.10.3.tar.gz"
+  sha256 "57d45337d9f433a4eaae84b2fd7fa288cdf54ba723c462b036e5e9253585c59f"
   head "https://github.com/40ants/cl-brewer"
 
   depends_on "sbcl" => :build
@@ -175,7 +175,7 @@ class ClBrewer < Formula
     ENV["CL_SOURCE_REGISTRY"] = "#{buildpath}/lib//:#{buildpath}//"
     ENV["ASDF_OUTPUT_TRANSLATIONS"] = "/:/"
 
-    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer/deploy/hooks)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error () (format *error-output* \"~A~%\" e) (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error () (uiop:quit 1)))"
+    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer/deploy/hooks)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error (e) (format *error-output* \"~A~%\" e) (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error (e) (format *error-output* \"~A~%\" e) (uiop:quit 1)))"
 
     system "bash", "-c", "mkdir dyn-libs && find bin/ -name '*.dylib' -exec mv '{}' dyn-libs/ \\;"
 
