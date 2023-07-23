@@ -28,19 +28,19 @@
                      :optional t
                      :documentation "Show program version")))
 
-(defun get-version ()
-  (asdf:component-version
-   (asdf:find-system :cl-brewer)))
+(defvar +version+
+  #.(asdf:component-version
+     (asdf:find-system :cl-brewer)))
 
 
 (defun print-help ()
   (format t "cl-brewer version ~a~%
-Usage: cl-brewer [options] <system-name>~%~%" (get-version))
+Usage: cl-brewer [options] <system-name>~%~%" +version+)
   (show-option-help +command-line-spec+ :sort-names t))
 
 
 (defun print-version ()
-  (format t "cl-brewer version ~a~%" (get-version)))
+  (format t "cl-brewer version ~a~%" +version+))
 
 
 (defun split (text)
