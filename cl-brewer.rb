@@ -1,8 +1,8 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for Common Lisp applications."
   homepage "https://40ants.com/cl-brewer/"
-  url "https://github.com/40ants/cl-brewer/archive/v0.10.0.tar.gz"
-  sha256 "874fd53c0c11dcf02751f1a8212401f382f3d7122df1f9e176abeb09fc081215"
+  url "https://github.com/40ants/cl-brewer/archive/v0.10.1.tar.gz"
+  sha256 "27549ef0e056028dd2ffe328a716eaf074b0a5c55f96bbebd6b361a202a52e59"
   head "https://github.com/40ants/cl-brewer"
 
   depends_on "sbcl" => :build
@@ -46,6 +46,11 @@ class ClBrewer < Formula
     sha256 "3ff50faf5ddccd409f8954eb70c2d4e76329cc916f070de95f79c7ecf6d3a2f1"
   end
 
+  resource "cl-change-case" do
+    url "http://beta.quicklisp.org/archive/cl-change-case/2021-04-11/cl-change-case-20210411-git.tgz"
+    sha256 "b2920b37fe4eae7864c0c2674405cb84ed951891462edcb8d536c003d2324293"
+  end
+
   resource "command-line-arguments" do
     url "http://beta.quicklisp.org/archive/command-line-arguments/2021-08-07/command-line-arguments-20210807-git.tgz"
     sha256 "939b3966e2887dd0b81bd1c3d051c42bce78c10fa32661263c9aa6c355fbf9bd"
@@ -59,6 +64,11 @@ class ClBrewer < Formula
   resource "edicl-cl-ppcre" do
     url "http://dist.ultralisp.org/archive/1239/edicl-cl-ppcre-20230614075200.tgz"
     sha256 "fcf1d505007aa0fce3d09752c5fd1459efbaae43fb80f06980e591c7ec393918"
+  end
+
+  resource "edicl-cl-unicode" do
+    url "http://dist.ultralisp.org/archive/1241/edicl-cl-unicode-20210222215228.tgz"
+    sha256 "8bbf6b8ff8d51caa9e3c329509345f59636cbd61e8c896112c792bbcbd3a0751"
   end
 
   resource "edicl-drakma" do
@@ -151,6 +161,11 @@ class ClBrewer < Formula
     sha256 "33b94a7d3b2258bf6f06fbc52560dfbc3d2d8dd87ef407bfb18f10c40b17eb6e"
   end
 
+  resource "vindarel-cl-str" do
+    url "http://dist.ultralisp.org/archive/36/vindarel-cl-str-20230710200441.tgz"
+    sha256 "5619486c2b5184d6b1ca99c452ee63b393ddca6d1b007c373c262fb7e62408f7"
+  end
+
   def install
     resources.each do |resource|
       resource.stage buildpath/"lib"/resource.name
@@ -160,7 +175,7 @@ class ClBrewer < Formula
     ENV["CL_SOURCE_REGISTRY"] = "#{buildpath}/lib//:#{buildpath}//"
     ENV["ASDF_OUTPUT_TRANSLATIONS"] = "/:/"
 
-    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer/deploy/hooks)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error () (format *error-output* "~A~%" e) (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error () (uiop:quit 1)))"
+    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer/deploy/hooks)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error () (format *error-output* \"~A~%\" e) (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error () (uiop:quit 1)))"
 
     system "bash", "-c", "mkdir dyn-libs && find bin/ -name '*.dylib' -exec mv '{}' dyn-libs/ \\;"
 
