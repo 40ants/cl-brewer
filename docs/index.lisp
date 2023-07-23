@@ -226,3 +226,11 @@ All code is public domain except parts that were taken from [quicklisp-homebrew-
 
 
 (defautodoc @api (:system "cl-brewer"))
+
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (loop for symbol in '(cl-brewer/formula:included-systems
+                        cl-brewer/formula:missing-systems
+                        cl-brewer/formula:root-system)
+        do (pushnew symbol
+                    40ants-doc:*symbols-with-ignored-missing-locations*)))
