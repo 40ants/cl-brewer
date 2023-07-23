@@ -11,6 +11,8 @@
                               "52M"
                               "13M"
                               "HTTP"))
+  (0.10.1 2023-07-23
+          "* Fixed build commands escaping for Deploy formula.")
   (0.10.0 2023-07-23
           "* Library was refactored to use package-inferred system style. Also a new style documentation was added.")
   (0.9.1 2023-07-14

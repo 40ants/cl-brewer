@@ -7,6 +7,8 @@
                 #:env-vars
                 #:print-dependencies
                 #:define-quesser)
+  (:import-from #:str
+                #:replace-all)
   (:export #:deploy-formula))
 (in-package #:cl-brewer/deploy/formula)
 
@@ -102,7 +104,8 @@
           evals)
 
     (loop for eval in (reverse evals)
-          do (format stream ", \"--eval\", \"~A\"" eval))
+          do (format stream ", \"--eval\", \"~A\""
+                     (replace-all "\"" "\\\"" eval)))
 
     ;; Deploy puts all dynamic libraries into the bin directory,
     ;; but if we leave them there, Homebrew will symlink these dylibs into /opt/homebrew/bin.
