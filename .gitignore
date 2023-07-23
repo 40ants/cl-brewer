@@ -1,8 +1,6 @@
-*.fasl
-/bundle-libs/
-/quicklisp/
-/.qlot/
-/sly/
-/cl-brewer-buildapp
-/cl-brewer-asdf
+.qlot/
+/docs/build/
+*~
+.#*
+.*.~undo-tree~
 .DS_Store

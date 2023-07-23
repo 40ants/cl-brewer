@@ -1,4 +1,33 @@
-(in-package #:cl-brewer)
+(uiop:define-package #:cl-brewer/deploy/formula
+  (:use #:cl)
+  (:import-from #:cl-brewer/formula
+                #:formula
+                #:name
+                #:print-build-commands
+                #:env-vars
+                #:print-dependencies
+                #:define-quesser)
+  (:export #:deploy-formula))
+(in-package #:cl-brewer/deploy/formula)
+
+
+(defclass deploy-formula (formula)
+  ()
+  (:documentation "This formula class uses [Deploy](https://shinmera.github.io/deploy/) to build a binary.
+
+                   The core difference from CL-BREWER/BUILDAPP/FORMULA:BUILDAPP-FORMULA is that
+                   this type of formula also builds and distributes all necessary dynamic libraries."))
+
+
+(define-quesser guess-deploy-formula (system)
+  ;; We support Buildapp or Shinmera's Deploy as a build systems.
+  ;; 
+  ;; TODO: Probably we also should search and build any Roswell scripts,
+  ;; found in the ./roswell/ subdirectory.
+  (let* ((build-operation (asdf/component:component-build-operation system)))
+    (when (string-equal build-operation
+                        "deploy-op")
+      'deploy-formula)))
 
 
 (defun extract-formula-name-from (path)

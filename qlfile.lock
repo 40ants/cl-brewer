@@ -5,8 +5,12 @@
 ("ultralisp" .
  (:class qlot/source/dist:source-dist
   :initargs (:distribution "http://dist.ultralisp.org" :%version :latest)
-  :version "20230719154500"))
+  :version "20230721140501"))
 ("quicklisp-quicklisp-client" .
  (:class qlot/source/ultralisp:source-ultralisp
   :initargs (:%version "20210216013000")
   :version "ultralisp-20210216013000"))
+("slynk" .
+ (:class qlot/source/github:source-github
+  :initargs (:repos "svetlyak40wt/sly" :ref nil :branch "patches" :tag nil)
+  :version "github-030a8441f57f7e0bb401570935e741dfd9edfb83"))

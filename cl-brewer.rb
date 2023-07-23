@@ -1,6 +1,6 @@
 class ClBrewer < Formula
-  desc "Homebrew formula builder for common lisp applications"
-  homepage "https://github.com/40ants/cl-brewer"
+  desc "Homebrew formula builder for Common Lisp applications."
+  homepage "https://40ants.com/cl-brewer/"
   url "https://github.com/40ants/cl-brewer/archive/v0.9.1.tar.gz"
   sha256 "38ee7640bca7b015a103b61d8303ed665217bc55ff24fffb5594f8f9e25041a8"
   head "https://github.com/40ants/cl-brewer"
@@ -160,7 +160,7 @@ class ClBrewer < Formula
     ENV["CL_SOURCE_REGISTRY"] = "#{buildpath}/lib//:#{buildpath}//"
     ENV["ASDF_OUTPUT_TRANSLATIONS"] = "/:/"
 
-    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer/deploy/hooks)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error () (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error () (uiop:quit 1)))"
+    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer/deploy/hooks)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error () (format *error-output* "~A~%" e) (uiop:quit 1)))", "--eval", "(handler-case (asdf:load-system :cl-plus-ssl-osx-fix) (error () (format *error-output* "~A~%" e) (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error () (uiop:quit 1)))"
 
     system "bash", "-c", "mkdir dyn-libs && find bin/ -name '*.dylib' -exec mv '{}' dyn-libs/ \\;"
 

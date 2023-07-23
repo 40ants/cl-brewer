@@ -1,4 +1,17 @@
-(in-package :cl-brewer)
+(uiop:define-package #:cl-brewer/main
+  (:use #:cl)
+  (:import-from #:cl-brewer/formula
+                #:missing-systems
+                #:create-formula)
+  (:import-from #:command-line-arguments
+                #:show-option-help
+                #:handle-command-line)
+  (:import-from #:cl-brewer/formula-impl
+                #:save-formula)
+  (:import-from #:cl-brewer/utils
+                #:split-string))
+(in-package #:cl-brewer/main)
+
 
 (defparameter +command-line-spec+
   '(
@@ -10,7 +23,7 @@
                      :documentation "A comma-separated list of system names to preload before starting a build.")
     (("help" #\h) :type boolean
                   :optional t
-     :documentation "Show help message")
+                  :documentation "Show help message")
     (("version" #\v) :type boolean
                      :optional t
                      :documentation "Show program version")))
@@ -50,14 +63,6 @@ Usage: cl-brewer [options] <system-name>~%~%" (get-version))
       (setf (symbol-value (intern "*USE-DEDICATED-OUTPUT-STREAM*"
                                   (find-package :slynk)))
             nil)
-      ;; (setf (symbol-value (intern "*LOG-EVENTS*"
-      ;;                             (find-package :slynk)))
-      ;;       t)
-      (format t "USING COMMUNICATION STYLE: ~A~%"
-              (symbol-value (intern "*COMMUNICATION-STYLE*"
-                                    (find-package :slynk)))
-              nil)
-
       (uiop:symbol-call :slynk :create-server 
                         :port port
                         :interface interface
