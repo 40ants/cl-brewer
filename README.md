@@ -180,7 +180,7 @@ All code is public domain except parts that were taken from [quicklisp-homebrew-
 
 <a id="x-28-23A-28-289-29-20BASE-CHAR-20-2E-20-22CL-BREWER-22-29-20PACKAGE-29"></a>
 
-#### [package](7acc) `cl-brewer`
+#### [package](68b4) `cl-brewer`
 
 <a id="x-28CL-BREWER-DOCS-2FINDEX-3A-3A-7C-40CL-BREWER-3FClasses-SECTION-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
@@ -192,7 +192,7 @@ All code is public domain except parts that were taken from [quicklisp-homebrew-
 
 <a id="x-28CL-BREWER-3AFORMULA-20CLASS-29"></a>
 
-###### [class](e258) `cl-brewer:formula` ()
+###### [class](a4be) `cl-brewer:formula` ()
 
 Base class for Homebrew formula definition.
 
@@ -200,29 +200,29 @@ Base class for Homebrew formula definition.
 
 <a id="x-28CL-BREWER-2FFORMULA-3AINCLUDED-SYSTEMS-20-2840ANTS-DOC-2FLOCATIVES-3AREADER-20CL-BREWER-3AFORMULA-29-29"></a>
 
-###### [reader](c5ca) `cl-brewer/formula:included-systems` (formula) (:included-systems)
+###### [reader](910c) `cl-brewer/formula:included-systems` (formula) (:included-systems)
 
 <a id="x-28CL-BREWER-2FFORMULA-3AMISSING-SYSTEMS-20-2840ANTS-DOC-2FLOCATIVES-3AREADER-20CL-BREWER-3AFORMULA-29-29"></a>
 
-###### [reader](a18f) `cl-brewer/formula:missing-systems` (formula) (:missing-systems)
+###### [reader](2a1c) `cl-brewer/formula:missing-systems` (formula) (:missing-systems)
 
 <a id="x-28CL-BREWER-2FFORMULA-3AROOT-SYSTEM-20-2840ANTS-DOC-2FLOCATIVES-3AREADER-20CL-BREWER-3AFORMULA-29-29"></a>
 
-###### [reader](fc38) `cl-brewer/formula:root-system` (formula) (:root-system)
+###### [reader](a44f) `cl-brewer/formula:root-system` (formula) (:root-system)
 
 **Accessors**
 
 <a id="x-28CL-BREWER-2FFORMULA-3AINCLUDED-SYSTEMS-20-2840ANTS-DOC-2FLOCATIVES-3AACCESSOR-20CL-BREWER-3AFORMULA-29-29"></a>
 
-###### [accessor](c5ca) `cl-brewer/formula:included-systems` (formula) (:included-systems)
+###### [accessor](910c) `cl-brewer/formula:included-systems` (formula) (:included-systems)
 
 <a id="x-28CL-BREWER-2FFORMULA-3AMISSING-SYSTEMS-20-2840ANTS-DOC-2FLOCATIVES-3AACCESSOR-20CL-BREWER-3AFORMULA-29-29"></a>
 
-###### [accessor](a18f) `cl-brewer/formula:missing-systems` (formula) (:missing-systems)
+###### [accessor](2a1c) `cl-brewer/formula:missing-systems` (formula) (:missing-systems)
 
 <a id="x-28CL-BREWER-2FFORMULA-3AROOT-SYSTEM-20-2840ANTS-DOC-2FLOCATIVES-3AACCESSOR-20CL-BREWER-3AFORMULA-29-29"></a>
 
-###### [accessor](fc38) `cl-brewer/formula:root-system` (formula) (:root-system)
+###### [accessor](a44f) `cl-brewer/formula:root-system` (formula) (:root-system)
 
 <a id="x-28CL-BREWER-DOCS-2FINDEX-3A-3A-7C-40CL-BREWER-3FGenerics-SECTION-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
@@ -230,13 +230,13 @@ Base class for Homebrew formula definition.
 
 <a id="x-28CL-BREWER-3ACREATE-FORMULA-20GENERIC-FUNCTION-29"></a>
 
-##### [generic-function](2aab) `cl-brewer:create-formula` system
+##### [generic-function](0fd8) `cl-brewer:create-formula` system
 
 Create <formula> object based on asdf:system with a list of all dependencies
 
 <a id="x-28CL-BREWER-3AGET-IMPLICIT-DEPENDENCIES-20GENERIC-FUNCTION-29"></a>
 
-##### [generic-function](73c9) `cl-brewer:get-implicit-dependencies` system-name
+##### [generic-function](5662) `cl-brewer:get-implicit-dependencies` system-name
 
 Some systems, like cl-unicode have implicit dependencies in their asdf methods:
 [https://github.com/edicl/cl-unicode/blob/8073fc5634c9d4802888ac03abf11dfe383e16fa/cl-unicode.asd#L67-L70][44a6]
@@ -251,7 +251,7 @@ Each returned system should be possible to find with ql-dist:find-system.
 
 <a id="x-28CL-BREWER-3ASAVE-FORMULA-20FUNCTION-29"></a>
 
-##### [function](c005) `cl-brewer:save-formula` formula name &key entry-point preload
+##### [function](4f4d) `cl-brewer:save-formula` formula name &key entry-point preload
 
 Saves Homebrew formula definition into the file with given `NAME`.
 
@@ -268,7 +268,7 @@ might ignore this argument.
 
 <a id="x-28-23A-28-2826-29-20BASE-CHAR-20-2E-20-22CL-BREWER-2FBUILDAPP-2FFORMULA-22-29-20PACKAGE-29"></a>
 
-#### [package](20bb) `cl-brewer/buildapp/formula`
+#### [package](6597) `cl-brewer/buildapp/formula`
 
 <a id="x-28CL-BREWER-DOCS-2FINDEX-3A-3A-7C-40CL-BREWER-2FBUILDAPP-2FFORMULA-3FClasses-SECTION-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
@@ -280,7 +280,7 @@ might ignore this argument.
 
 <a id="x-28CL-BREWER-2FBUILDAPP-2FFORMULA-3ABUILDAPP-FORMULA-20CLASS-29"></a>
 
-###### [class](d2f6) `cl-brewer/buildapp/formula:buildapp-formula` (formula)
+###### [class](eefc) `cl-brewer/buildapp/formula:buildapp-formula` (formula)
 
 This formula class uses [Buildapp][ebe7] to build a binary.
 
@@ -290,7 +290,7 @@ This formula class uses [Buildapp][ebe7] to build a binary.
 
 <a id="x-28-23A-28-2824-29-20BASE-CHAR-20-2E-20-22CL-BREWER-2FDEPLOY-2FFORMULA-22-29-20PACKAGE-29"></a>
 
-#### [package](d3aa) `cl-brewer/deploy/formula`
+#### [package](5872) `cl-brewer/deploy/formula`
 
 <a id="x-28CL-BREWER-DOCS-2FINDEX-3A-3A-7C-40CL-BREWER-2FDEPLOY-2FFORMULA-3FClasses-SECTION-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
@@ -302,7 +302,7 @@ This formula class uses [Buildapp][ebe7] to build a binary.
 
 <a id="x-28CL-BREWER-2FDEPLOY-2FFORMULA-3ADEPLOY-FORMULA-20CLASS-29"></a>
 
-###### [class](f780) `cl-brewer/deploy/formula:deploy-formula` (formula)
+###### [class](1ecd) `cl-brewer/deploy/formula:deploy-formula` (formula)
 
 This formula class uses [Deploy][eaea] to build a binary.
 
@@ -315,7 +315,7 @@ this type of formula also builds and distributes all necessary dynamic libraries
 
 <a id="x-28-23A-28-2817-29-20BASE-CHAR-20-2E-20-22CL-BREWER-2FFORMULA-22-29-20PACKAGE-29"></a>
 
-#### [package](96c3) `cl-brewer/formula`
+#### [package](b4d0) `cl-brewer/formula`
 
 <a id="x-28CL-BREWER-DOCS-2FINDEX-3A-3A-7C-40CL-BREWER-2FFORMULA-3FGenerics-SECTION-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
@@ -339,7 +339,7 @@ this type of formula also builds and distributes all necessary dynamic libraries
 
 <a id="x-28CL-BREWER-2FFORMULA-3ADEFINE-QUESSER-20-2840ANTS-DOC-2FLOCATIVES-3AMACRO-29-29"></a>
 
-##### [macro](fb50) `cl-brewer/formula:define-quesser` name (asdf-system) &body body
+##### [macro](bace) `cl-brewer/formula:define-quesser` name (asdf-system) &body body
 
 Use this macro to define a function to guess a formula class.
 
@@ -356,20 +356,20 @@ then it should return a `NIL` value.
 [4e9e]: https://40ants.com/cl-brewer/#x-28CL-BREWER-3AFORMULA-20CLASS-29
 [df7d]: https://github.com/40ants/cl-brewer
 [a54e]: https://github.com/40ants/cl-brewer/actions
-[20bb]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/buildapp/formula.lisp#L1
-[d2f6]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/buildapp/formula.lisp#L13
-[7acc]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/core.lisp#L1
-[d3aa]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/deploy/formula.lisp#L1
-[f780]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/deploy/formula.lisp#L16
-[c005]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/formula-impl.lisp#L127
-[96c3]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/formula.lisp#L1
-[fb50]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/formula.lisp#L147
-[e258]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/formula.lisp#L21
-[fc38]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/formula.lisp#L22
-[a18f]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/formula.lisp#L25
-[c5ca]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/formula.lisp#L28
-[2aab]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/formula.lisp#L34
-[73c9]: https://github.com/40ants/cl-brewer/blob/5567de1e8d7403edc018b3d706040b3efb943473/src/formula.lisp#L38
+[6597]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/buildapp/formula.lisp#L1
+[eefc]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/buildapp/formula.lisp#L13
+[68b4]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/core.lisp#L1
+[5872]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/deploy/formula.lisp#L1
+[1ecd]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/deploy/formula.lisp#L16
+[4f4d]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/formula-impl.lisp#L127
+[b4d0]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/formula.lisp#L1
+[bace]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/formula.lisp#L147
+[a4be]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/formula.lisp#L21
+[a44f]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/formula.lisp#L22
+[2a1c]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/formula.lisp#L25
+[910c]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/formula.lisp#L28
+[0fd8]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/formula.lisp#L34
+[5662]: https://github.com/40ants/cl-brewer/blob/d1676c831f9840809eb2edc99992c78432d96831/src/formula.lisp#L38
 [557c]: https://github.com/40ants/cl-brewer/issues
 [f9c6]: https://github.com/benesch/quicklisp-homebrew-roundup
 [cccc]: https://github.com/can3p/homebrew-cl-journal/blob/master/cl-journal.rb
