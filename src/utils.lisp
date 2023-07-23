@@ -1,17 +1,16 @@
-(in-package :cl-brewer)
+(uiop:define-package #:cl-brewer/utils
+  (:use #:cl)
+  (:import-from #:cl-brewer/hash
+                #:sha256)
+  (:import-from #:ironclad
+                #:byte-array-to-hex-string
+                #:digest-file))
+(in-package #:cl-brewer/utils)
 
-(defgeneric sha256 (formula))
-
-(defmethod sha256 ((formula formula))
-  (let ((fname (make-pathname :directory '(:absolute "tmp")
-                              :name (substitute #\- #\/ (name formula))))
-        (url (url formula)))
-    (trivial-download:download url fname)
-    (sha256 fname)))
 
 (defmethod sha256 ((path pathname))
-  (ironclad:byte-array-to-hex-string
-   (ironclad:digest-file :sha256 path)))
+  (byte-array-to-hex-string
+   (digest-file :sha256 path)))
 
 (defmethod sha256 ((release ql-dist:release))
   (sha256 (ql-dist:ensure-local-archive-file release)))
