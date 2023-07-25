@@ -11,6 +11,8 @@
                               "52M"
                               "13M"
                               "HTTP"))
+  (0.10.5 2023-07-25
+          "* Separated system with hooks into it's own ASDF system, solved a fiew other build errors.")
   (0.10.4 2023-07-24
           "* Cleanup and use newer 40ants-asdf-system for proper --version handling.")
   (0.10.3 2023-07-23
