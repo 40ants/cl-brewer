@@ -14,7 +14,8 @@
   (:export #:define-quesser
            #:included-systems
            #:missing-systems
-           #:root-system))
+           #:root-system
+           #:get-additional-dependencies))
 (in-package #:cl-brewer/formula)
 
 
@@ -62,6 +63,20 @@ Each returned system should be possible to find with ql-dist:find-system.")
     (get-implicit-dependencies (make-keyword (string-upcase system-name))))
   (:method ((system-name (eql :cl-unicode)))
     :flexi-streams))
+
+
+(defgeneric get-additional-dependencies (formula)
+  (:documentation "Some formulas might add dependencies needed to build a binary. For example, Deploy formula adds cl-brewer because it uses it's cl-brewer/deploy/hooks subsystem.")
+  (:method ((formula t))
+    nil)
+  (:method :around ((formula t))
+    (flet ((to-system-name (value)
+             (string-downcase
+              (etypecase value
+                (keyword (symbol-name value))
+                (string value)))))
+      (mapcar #'to-system-name
+              (ensure-list (call-next-method))))))
 
 
 (defgeneric print-releases (formula &key stream))

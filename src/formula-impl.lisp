@@ -10,6 +10,7 @@
   (:import-from #:cl-brewer/core
                 #:save-formula)
   (:import-from #:cl-brewer/formula
+                #:get-additional-dependencies
                 #:env-vars
                 #:print-dependencies
                 #:root-system
@@ -57,7 +58,11 @@ end
 
 
 ;; we skip systems that we know for sure are available
-(defparameter +whitelisted-systems+ '("asdf" "sb-introspect"))
+;; Probably we need to include all SBCL contribs here:
+;; /Users/art/.roswell/impls/arm64/darwin/sbcl-bin/2.3.3/lib/sbcl/contrib/
+(defparameter +whitelisted-systems+ '("asdf"
+                                      ;; "sb-introspect"
+                                      ))
 
 
 (defun guess-formula-class (system)
@@ -75,14 +80,10 @@ end
   (let* ((class (or (guess-formula-class system)
                     (error "Unable to guess FORMULA class for system ~A."
                            system)))
-         (deps (append (asdf:system-depends-on system)
-                       ;; We also need to include build dependencies
-                       ;; into the system.
-                       (asdf:system-defsystem-depends-on system)
-                       (when (eql class 'deploy-formula)
-                         ;; We need this system because these hooks
-                         ;; restore path to dynamic libs:
-                         (list "cl-brewer/deploy/hooks"))))
+         (system-deps (append (asdf:system-depends-on system)
+                              ;; We also need to include build dependencies
+                              ;; into the system.
+                              (asdf:system-defsystem-depends-on system)))
          (root-primary-name (asdf:primary-system-name system))
          (existing-systems)
          (missing-systems))
@@ -121,11 +122,18 @@ end
                        (t
                         (pushnew name missing-systems
                                  :test #'string-equal))))))
-      (dolist (subname deps) (expand-dep subname))
-      (make-instance class
-                     :root-system system
-                     :missing-systems (remove-duplicates missing-systems :test #'string=)
-                     :included-systems (remove-duplicates existing-systems)))))
+      (let* ((formula
+               (make-instance class
+                              :root-system system)))
+        (mapc #'expand-dep (append system-deps
+                                   (get-additional-dependencies formula)))
+
+        (setf (included-systems formula)
+               (remove-duplicates
+                existing-systems))
+        (setf (missing-systems formula)
+              (remove-duplicates missing-systems :test #'string=))
+        (values formula)))))
 
 
 (defun save-formula (formula name &key entry-point preload)

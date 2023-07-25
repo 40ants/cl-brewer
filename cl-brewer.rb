@@ -1,8 +1,8 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for Common Lisp applications."
   homepage "https://40ants.com/cl-brewer/"
-  url "https://github.com/40ants/cl-brewer/archive/v0.10.3.tar.gz"
-  sha256 "57d45337d9f433a4eaae84b2fd7fa288cdf54ba723c462b036e5e9253585c59f"
+  url "https://github.com/40ants/cl-brewer/archive/v0.10.4.tar.gz"
+  sha256 "526356e81a1fae6bddf665b801d6f5a1ac87a614d36c19434db58296a9a3c901"
   head "https://github.com/40ants/cl-brewer"
 
   depends_on "sbcl" => :build
@@ -12,8 +12,8 @@ class ClBrewer < Formula
   depends_on "zstd"
 
   resource "40ants-40ants-asdf-system" do
-    url "http://dist.ultralisp.org/archive/1825/40ants-40ants-asdf-system-20230210163819.tgz"
-    sha256 "3d733cc66520132ce0743ca2b363e1806c0311c8fb128e77d8af0ef0fb8638ee"
+    url "http://dist.ultralisp.org/archive/1825/40ants-40ants-asdf-system-20230724171226.tgz"
+    sha256 "6a1f4785fb233bdf38fe4cbcb6e8181b9a3e6b3e6790eaa16e6f92dbfd4e3ab0"
   end
 
   resource "40ants-cl-plus-ssl-osx-fix" do

@@ -1,6 +1,7 @@
 (uiop:define-package #:cl-brewer/deploy/formula
   (:use #:cl)
   (:import-from #:cl-brewer/formula
+                #:get-additional-dependencies
                 #:formula
                 #:name
                 #:print-build-commands
@@ -59,6 +60,11 @@
                               :key #'car))))
 
 
+(defmethod get-additional-dependencies ((formula deploy-formula))
+  (list* "cl-brewer-deploy-hooks"
+         (call-next-method)))
+
+
 (defmethod print-dependencies :after ((formula deploy-formula) &key (stream t))
   (loop for (formula . libs) in (get-brew-formulas-which-provide-dynlibs)
         do (format stream "  # required by: ~{~S~#[~; and ~:;, ~]~}~%"
@@ -86,7 +92,7 @@
   (let ((evals (list
                 ;; These hooks will store and restore the path
                 ;; to dynamic libs in Homebrew's Cellar:
-                "(asdf:load-system :cl-brewer/deploy/hooks)"
+                "(asdf:load-system :cl-brewer-deploy-hooks)"
                 ;; Now we need to turn off Deploy's debug messages:
                 "(push :deploy-console *features*)"
                 "(require :asdf)")))

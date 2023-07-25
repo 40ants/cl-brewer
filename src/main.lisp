@@ -98,9 +98,6 @@ Usage: cl-brewer [options] <system-name>~%~%" (get-version))
 
 
 (defun bake-system (args &key main help preload version)
-  ;; We need this to make it possible to run a binary under qlot exec
-  (setf (uiop:getenv "SBCL_HOME") "")
-
   ;; We need this to make it possible to run cl-brewer under the Qlot
   ;; If we don't check for existence of QUICKLISP_HOME variable
   ;; and make (quicklisp:setup), then quicklisp client creates
@@ -172,13 +169,18 @@ Usage: cl-brewer [options] <system-name>~%~%" (get-version))
                                 :preload preload)))))))))
 
 (defun main (&rest args)
-  (handle-command-line
-   +command-line-spec+
-   'bake-system
-   :command-line args
-   :name "cl-brewer"
-   :positional-arity 0
-   :rest-arity t))
+  (handler-bind ((error (lambda (e)
+                          (format *debug-io*
+                                  "Unhandled error: ~A~%"
+                                  e)
+                          (sb-debug:print-backtrace ))))
+    (handle-command-line
+     +command-line-spec+
+     'bake-system
+     :command-line args
+     :name "cl-brewer"
+     :positional-arity 0
+     :rest-arity t)))
 
 
 (defun asdf-main ()

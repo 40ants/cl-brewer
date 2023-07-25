@@ -1,12 +1,14 @@
-(uiop:define-package #:cl-brewer/deploy-hooks
-  (:use #:cl))
-(in-package #:cl)
+(uiop:define-package #:cl-brewer/deploy/hooks
+  (:use #:cl)
+  (:import-from #:deploy
+                #:define-hook))
+(in-package #:cl-brewer/deploy/hooks)
 
 (defvar *libexec-path*
   (uiop:getenv "LIBEXEC_PATH"))
 
 
-(deploy:define-hook (:deploy ignore-system-libraries) ()
+(define-hook (:deploy ignore-system-libraries) ()
   (loop for lib in (deploy:list-libraries)
         when (eql (cffi:foreign-library-type lib)
                   :system)
@@ -20,10 +22,10 @@
                         do (deploy:status 2 "~A" lib)))))
 
 
-(deploy:define-hook (:boot restore-path-to-libexec
-                     ;; we need to ensure this hook will be executed before
-                     ;; Deploy's attempt to load libraries:
-                     (1+ most-positive-fixnum)) ()
+(define-hook (:boot restore-path-to-libexec
+              ;; we need to ensure this hook will be executed before
+              ;; Deploy's attempt to load libraries:
+              (1+ most-positive-fixnum)) ()
   (cond
     (*libexec-path*
      (deploy:status 0 "Adding ~A to cffi:*foreign-library-directories*."
