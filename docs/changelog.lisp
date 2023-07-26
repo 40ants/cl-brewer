@@ -11,8 +11,12 @@
                               "52M"
                               "13M"
                               "HTTP"))
-  ;; Now CL_SOURCE_REGISTRY includes current dir non-recursively and all dependencies are placed in the `_brew_resources` folder instead of `lib`.
-  ;; Added --formula-name argument
+  (0.11.0 2023-07-26
+          "* Now CL_SOURCE_REGISTRY includes current dir non-recursively and all dependencies
+             are placed in the `_brew_resources` folder instead of `lib`.
+           * Also, all warnings are muffled on compilation.
+           * And `--formula-name` option was added. This way you'll be able to override filename
+             of the formula.")
   (0.10.5 2023-07-25
           "* Separated system with hooks into it's own ASDF system, solved a fiew other build errors.")
   (0.10.4 2023-07-24
