@@ -156,7 +156,7 @@ cl-brewer <your-system-name>
 
 This will emit `<your-system-name>.rb` file in current folder.
 
-To run cl-brewer under Qlot, you'll need set SBCL_HOME variable.
+To run cl-brewer under Qlot, you'll need set `SBCL_HOME` variable.
 Otherwise `sb-sys::*sbcl-homedir-pathname*` variable will be reinitialized
 and this can cause some incompatibilities if Qlot and cl-brewer were built
 with different SBCL implementations.

@@ -2,6 +2,54 @@
 
 # ChangeLog
 
+<a id="x-28CL-BREWER-DOCS-2FCHANGELOG-3A-3A-7C0-2E11-2E0-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 0.11.0 (2023-07-26)
+
+* Now `CL_SOURCE_REGISTRY` includes current dir non-recursively and all dependencies
+  are placed in the `_brew_resources` folder instead of `lib`.
+
+* Also, all warnings are muffled on compilation.
+
+* And `--formula-name` option was added. This way you'll be able to override filename
+  of the formula.
+
+<a id="x-28CL-BREWER-DOCS-2FCHANGELOG-3A-3A-7C0-2E10-2E5-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 0.10.5 (2023-07-25)
+
+* Separated system with hooks into it's own `ASDF` system, solved a fiew other build errors.
+
+<a id="x-28CL-BREWER-DOCS-2FCHANGELOG-3A-3A-7C0-2E10-2E4-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 0.10.4 (2023-07-24)
+
+* Cleanup and use newer 40ants-asdf-system for proper `--version` handling.
+
+<a id="x-28CL-BREWER-DOCS-2FCHANGELOG-3A-3A-7C0-2E10-2E3-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 0.10.3 (2023-07-23)
+
+* Fixed arguments parsing.
+
+<a id="x-28CL-BREWER-DOCS-2FCHANGELOG-3A-3A-7C0-2E10-2E2-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 0.10.2 (2023-07-23)
+
+* Fixed how cl-brewer's version number is stored in the binary.
+
+<a id="x-28CL-BREWER-DOCS-2FCHANGELOG-3A-3A-7C0-2E10-2E1-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 0.10.1 (2023-07-23)
+
+* Fixed build commands escaping for Deploy formula.
+
+<a id="x-28CL-BREWER-DOCS-2FCHANGELOG-3A-3A-7C0-2E10-2E0-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 0.10.0 (2023-07-23)
+
+* Library was refactored to use package-inferred system style. Also a new style documentation was added.
+
 <a id="x-28CL-BREWER-DOCS-2FCHANGELOG-3A-3A-7C0-2E9-2E1-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
 ## 0.9.1 (2023-07-14)
