@@ -1,8 +1,8 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for Common Lisp applications."
   homepage "https://40ants.com/cl-brewer/"
-  url "https://github.com/40ants/cl-brewer/archive/v0.10.4.tar.gz"
-  sha256 "526356e81a1fae6bddf665b801d6f5a1ac87a614d36c19434db58296a9a3c901"
+  url "https://github.com/40ants/cl-brewer/archive/v0.10.5.tar.gz"
+  sha256 "a3ece6c1f26c96ed4be68846457b4f20b9f0b7e7cfcbd5f43ea10d44142b22f7"
   head "https://github.com/40ants/cl-brewer"
 
   depends_on "sbcl" => :build
@@ -14,6 +14,11 @@ class ClBrewer < Formula
   resource "40ants-40ants-asdf-system" do
     url "http://dist.ultralisp.org/archive/1825/40ants-40ants-asdf-system-20230724171226.tgz"
     sha256 "6a1f4785fb233bdf38fe4cbcb6e8181b9a3e6b3e6790eaa16e6f92dbfd4e3ab0"
+  end
+
+  resource "40ants-cl-brewer" do
+    url "http://dist.ultralisp.org/archive/1977/40ants-cl-brewer-20230725165337.tgz"
+    sha256 "10b4d88c0d79a920230b012a8b3e12ef544534003d507e70da753ea44893bff9"
   end
 
   resource "40ants-cl-plus-ssl-osx-fix" do
@@ -168,14 +173,29 @@ class ClBrewer < Formula
 
   def install
     resources.each do |resource|
-      resource.stage buildpath/"lib"/resource.name
+      resource.stage buildpath/"_brew_resources"/resource.name
     end
 
     ENV["LIBEXEC_PATH"] = "#{libexec}/"
-    ENV["CL_SOURCE_REGISTRY"] = "#{buildpath}/lib//:#{buildpath}//"
+    ENV["CL_SOURCE_REGISTRY"] = "#{buildpath}/:#{buildpath}/_brew_resources//"
     ENV["ASDF_OUTPUT_TRANSLATIONS"] = "/:/"
 
-    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer/deploy/hooks)", "--eval", "(handler-case (asdf:load-system :quicklisp-starter) (error (e) (format *error-output* \"~A~%\" e) (uiop:quit 1)))", "--eval", "(handler-case (asdf:make :cl-brewer) (error (e) (format *error-output* \"~A~%\" e) (uiop:quit 1)))"
+    system "sbcl", "--eval", "(require :asdf)", "--eval", "(push :deploy-console *features*)", "--eval", "(asdf:load-system :cl-brewer-deploy-hooks)", "--eval", "(HANDLER-BIND ((ERROR
+                (LAMBDA (E)
+                  (UIOP/IMAGE:PRINT-BACKTRACE :CONDITION E)
+                  (UIOP/IMAGE:QUIT 1)))
+               (WARNING #'MUFFLE-WARNING))
+  (ASDF/OPERATE:LOAD-SYSTEM \"quicklisp-starter\"))", "--eval", "(HANDLER-BIND ((ERROR
+                (LAMBDA (E)
+                  (UIOP/IMAGE:PRINT-BACKTRACE :CONDITION E)
+                  (UIOP/IMAGE:QUIT 1)))
+               (WARNING #'MUFFLE-WARNING))
+  (ASDF/OPERATE:LOAD-SYSTEM \"cl-plus-ssl-osx-fix\"))", "--eval", "(HANDLER-BIND ((ERROR
+                (LAMBDA (E)
+                  (UIOP/IMAGE:PRINT-BACKTRACE :CONDITION E)
+                  (UIOP/IMAGE:QUIT 1)))
+               (WARNING #'MUFFLE-WARNING))
+  (ASDF/OPERATE:MAKE \"cl-brewer\"))"
 
     system "bash", "-c", "mkdir dyn-libs && find bin/ -name '*.dylib' -exec mv '{}' dyn-libs/ \\;"
 

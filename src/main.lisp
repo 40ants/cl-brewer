@@ -21,6 +21,9 @@
     (("preload" #\p) :type string
                      :optional t
                      :documentation "A comma-separated list of system names to preload before starting a build.")
+    (("formula-name" #\f) :type string
+                          :optional t
+                          :documentation "A name for formula. If not given, then ASDF system name will be used.")
     (("help" #\h) :type boolean
                   :optional t
                   :documentation "Show help message")
@@ -97,7 +100,7 @@ Usage: cl-brewer [options] <system-name>~%~%" (get-version))
          (format t "Continuing~%"))))))
 
 
-(defun bake-system (args &key main help preload version)
+(defun bake-system (args &key main help preload version formula-name)
   ;; We need this to make it possible to run cl-brewer under the Qlot
   ;; If we don't check for existence of QUICKLISP_HOME variable
   ;; and make (quicklisp:setup), then quicklisp client creates
@@ -164,16 +167,15 @@ Usage: cl-brewer [options] <system-name>~%~%" (get-version))
                           (missing-systems formula)))
                  (t
                   (format t "Dependencies lookup was successful, proceeding~%")
-                  (save-formula formula name
+                  (save-formula formula
+                                (or formula-name
+                                    name)
                                 :entry-point main
                                 :preload preload)))))))))
 
 (defun main (&rest args)
   (handler-bind ((error (lambda (e)
-                          (format *debug-io*
-                                  "Unhandled error: ~A~%"
-                                  e)
-                          (sb-debug:print-backtrace ))))
+                          (uiop:print-backtrace :condition e))))
     (handle-command-line
      +command-line-spec+
      'bake-system

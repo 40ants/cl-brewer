@@ -151,6 +151,7 @@ end
                             :if-exists :supersede
                             :if-does-not-exist :create)
       (print-formula formula
+                     :formula-name name
                      :stream stream
                      :entry-point entry-point
                      :preload preload))))
@@ -175,9 +176,11 @@ end
           (sha256 release)))
 
 
-(defun print-formula (formula &key (stream t) entry-point preload)
+(defun print-formula (formula &key formula-name (stream t) entry-point preload)
   (check-type formula formula)
-  (print-header formula :stream stream)
+  (print-header formula
+                :stream stream
+                :formula-name formula-name)
   (print-dependencies formula :stream stream)
   (print-releases formula :stream stream)
   (print-install formula
@@ -212,7 +215,7 @@ end
   (format stream
           "  def install
     resources.each do |resource|
-      resource.stage buildpath/\"lib\"/resource.name
+      resource.stage buildpath/\"_brew_resources\"/resource.name
     end
 ")
   (print-env-vars formula :stream stream)
@@ -226,7 +229,7 @@ end
 (defmethod env-vars ((formula formula))
   (list
    (cons "CL_SOURCE_REGISTRY"
-         "#{buildpath}/lib//:#{buildpath}//")
+         "#{buildpath}/:#{buildpath}/_brew_resources//")
    (cons "ASDF_OUTPUT_TRANSLATIONS"
          "/:/")))
 
@@ -247,9 +250,10 @@ end
   (declare (ignorable formula stream entry-point preload)))
 
 
-(defmethod cl-brewer/formula::print-header ((formula formula) &key stream)
+(defmethod cl-brewer/formula::print-header ((formula formula) &key stream formula-name)
   (format stream +formula-header+
-          (rubyize-name (name formula))
+          (rubyize-name (or formula-name
+                            (name formula)))
           (description formula)
           (home-page formula)
           (url formula)

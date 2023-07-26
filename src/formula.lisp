@@ -99,7 +99,7 @@ Each returned system should be possible to find with ql-dist:find-system.")
   (:documentation "Outputs build commands for \"install\" method of the formula."))
 
 
-(defgeneric print-header (formula &key stream))
+(defgeneric print-header (formula &key stream formula-name))
 
 
 (defgeneric print-footer (formula &key stream))

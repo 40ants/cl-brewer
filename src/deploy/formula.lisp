@@ -85,6 +85,11 @@
          (call-next-method)))
 
 
+(defun lisp-to-string (code)
+  (let ((*package* (find-package "CL-BREWER/DEPLOY/FORMULA")))
+    (format nil "~S" code)))
+
+
 (defmethod print-build-commands ((formula deploy-formula)
                                  &key (stream t) entry-point preload
                                  &allow-other-keys)
@@ -99,14 +104,29 @@
     (format stream
             "
     system \"sbcl\"")
-  
+    
     (dolist (item (alexandria:ensure-list preload))
-      (push (format nil "(handler-case (asdf:load-system :~A) (error (e) (format *error-output* \"~~A~~%\" e) (uiop:quit 1)))"
-                    item)
-            evals))
+      (push (lisp-to-string
+             `(handler-bind ((error (lambda (e)
+                                      (uiop:print-backtrace :condition e)
+                                      (uiop:quit 1)))
+                             (warning #'muffle-warning))
+                (asdf:load-system ,item)))
+            evals)
+      ;; (push (format nil "(handler-bind ((error (lambda (e) (uiop:print-backtrace :condition e) (uiop:quit 1)))) (asdf:load-system :~A))"
+      ;;               item)
+      ;;       evals)
+      )
 
-    (push (format nil "(handler-case (asdf:make :~A) (error (e) (format *error-output* \"~~A~~%\" e) (uiop:quit 1)))"
-                  (name formula))
+    ;; (push (format nil "(handler-case (asdf:make :~A) (error (e) (format *error-output* \"~~A~~%\" e) (uiop:quit 1)))"
+    ;;               (name formula))
+    ;;       evals)
+    (push (lisp-to-string
+           `(handler-bind ((error (lambda (e)
+                                    (uiop:print-backtrace :condition e)
+                                    (uiop:quit 1)))
+                           (warning #'muffle-warning))
+              (asdf:make ,(name formula))))
           evals)
 
     (loop for eval in (reverse evals)
