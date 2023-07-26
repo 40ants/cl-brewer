@@ -1,8 +1,8 @@
 class ClBrewer < Formula
   desc "Homebrew formula builder for Common Lisp applications."
   homepage "https://40ants.com/cl-brewer/"
-  url "https://github.com/40ants/cl-brewer/archive/v0.10.5.tar.gz"
-  sha256 "a3ece6c1f26c96ed4be68846457b4f20b9f0b7e7cfcbd5f43ea10d44142b22f7"
+  url "https://github.com/40ants/cl-brewer/archive/v0.11.0.tar.gz"
+  sha256 "a465bd2a5737e92a505bd01461e2e50b74a71062376557170acb5de6de3ecbb9"
   head "https://github.com/40ants/cl-brewer"
 
   depends_on "sbcl" => :build
