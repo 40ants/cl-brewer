@@ -5,7 +5,7 @@
 ("ultralisp" .
  (:class qlot/source/dist:source-dist
   :initargs (:distribution "http://dist.ultralisp.org" :%version :latest)
-  :version "20240322141005"))
+  :version "20240709152001"))
 ("quicklisp-quicklisp-client" .
  (:class qlot/source/ultralisp:source-ultralisp
   :initargs (:%version "20210216013000")
