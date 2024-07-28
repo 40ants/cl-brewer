@@ -23,7 +23,7 @@
 
 ## About
 
-Currently there is now easy way to distribute common lisp applications.
+Currently there is no easy way to distribute common lisp applications.
 One promising way is to use [roswell][795a] project
 however it might be to complicated for the users how just want to install
 an application and are not really interested in having one more package manager
