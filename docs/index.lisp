@@ -82,7 +82,7 @@
                     :external-links (("buildapp" . "https://xach.com/lisp/buildapp/")
                                      ("deploy" . "https://shinmera.github.io/deploy/")))
   "
-Currently there is now easy way to distribute common lisp applications.
+Currently there is no easy way to distribute common lisp applications.
 One promising way is to use [roswell](https://github.com/roswell/roswell) project
 however it might be to complicated for the users how just want to install
 an application and are not really interested in having one more package manager
