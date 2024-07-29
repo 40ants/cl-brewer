@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<rss version="2.0">
+    <channel>
+        <title>cl-brewer-docs ChangeLog</title>
+        <link>https://40ants.com/cl-brewer/</link>
+        <generator>xml-emitter</generator>
+        <language>en-us</language>
+        <item>
+            <title>0.11.0  (2023-07-26)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Now &lt;code&gt;CL_SOURCE_REGISTRY&lt;/code&gt; includes current dir non-recursively and all dependencies
+  are placed in the &lt;code&gt;_brew_resources&lt;/code&gt; folder instead of &lt;code&gt;lib&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Also, all warnings are muffled on compilation.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;And &lt;code&gt;--formula-name&lt;/code&gt; option was added. This way you&apos;ll be able to override filename
+  of the formula.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Wed, 26 Jul 2023 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.10.5  (2023-07-25)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Separated system with hooks into it&apos;s own &lt;code&gt;ASDF&lt;/code&gt; system, solved a fiew other build errors.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Tue, 25 Jul 2023 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.10.4  (2023-07-24)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Cleanup and use newer 40ants-asdf-system for proper &lt;code&gt;--version&lt;/code&gt; handling.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Mon, 24 Jul 2023 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.10.3  (2023-07-23)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Fixed arguments parsing.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.10.2  (2023-07-23)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Fixed how cl-brewer&apos;s version number is stored in the binary.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.10.1  (2023-07-23)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Fixed build commands escaping for Deploy formula.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.10.0  (2023-07-23)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Library was refactored to use package-inferred system style. Also a new style documentation was added.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.9.1  (2023-07-14)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Fixed an error happened in case if program does not have any dynamic libs to install into the Cellar.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Fri, 14 Jul 2023 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.9.0  (2023-07-14)</title>
+            <description>&lt;p&gt;Now when using Deploy, dynamic libraries copied into the libexec
+folder inside Cellar and not symlinked into the /ope/homebrew/bin folder.&lt;/p&gt;&lt;p&gt;Also, dynamic libraries provided by other Homebrew formulas are not
+copied into the Cellar, instead these formulas are listed as a dependency
+of the formula, created by cl-homebrew.&lt;/p&gt;</description>
+            <pubDate>Fri, 14 Jul 2023 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.8.0  (2019-09-12)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Now cl-brewer suppress debug output of the Deploy&apos;s startup process.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Added a &lt;code&gt;--version&lt;/code&gt; command line option.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Fixed creation of dist, local-projects and tmp in the current directory.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Thu, 12 Sep 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.7.0  (2019-09-11)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Added a generic-function &lt;a href=&quot;https://40ants.com/cl-brewer/#x-28CL-BREWER-3AGET-IMPLICIT-DEPENDENCIES-20GENERIC-FUNCTION-29&quot; data-document=&quot;https://40ants.com/cl-brewer/&quot; data-node=&quot;x-28CL-BREWER-3AGET-IMPLICIT-DEPENDENCIES-20GENERIC-FUNCTION-29&quot;&gt;&lt;code&gt;cl-brewer:get-implicit-dependencies&lt;/code&gt;&lt;/a&gt; which can be used to
+specify additional dependencies for systems when asdf is not possible to figure them out.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;It can be used like that:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;&quot;&gt;(defmethod cl-brewer:get-implicit-dependencies ((system-name (eql :cl-unicode)))
+    :flexi-streams)&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It can return a single keyword or a list of keywords.&lt;/p&gt;</description>
+            <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.6.0  (2019-07-30)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Now cl-brewer can be installed from the Homebrew tap as a binary.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.5.6  (2019-07-22)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Fixed arguments list in buildapp&apos;s entrypoint.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Mon, 22 Jul 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.5.5  (2019-07-22)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Fixed a bug in preloading code on buildapp.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Mon, 22 Jul 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.5.4  (2019-07-22)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Added support for &lt;code&gt;--preload&lt;/code&gt; option.
+It allows to embedd Quicklisp client when building a binary for a homebrew.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Mon, 22 Jul 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.5.3  (2019-07-22)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;More diagnostics to understand why does not work a binary built by homebrew.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Mon, 22 Jul 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.5.2  (2019-07-22)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Added an entry point for buildapp.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Mon, 22 Jul 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.5.1  (2019-07-21)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Kickstarting quicklisp client when building cl-brewer.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Sun, 21 Jul 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.5.0  (2019-07-21)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Now cl-brewer can work with package-inferred asdf systems.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Previously, some archives were included more than once because
+  they contains multiple systems. Now this is fixed.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Added option &lt;code&gt;--compress-core&lt;/code&gt;. It reduces size of a simple
+  &amp;quot;hello world&amp;quot; from &lt;code&gt;52M&lt;/code&gt; to &lt;code&gt;13M&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Function &lt;code&gt;cl-brewer::create-formula&lt;/code&gt; was made external and now
+  can accept system name as a symbol.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Function &lt;code&gt;cl-brewer::save-formula&lt;/code&gt; was made external.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;code&gt;ASDF&lt;/code&gt; option &lt;code&gt;defsystem-depends-on&lt;/code&gt; was supported.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Sun, 21 Jul 2019 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.4.0  (2016-12-17)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Provide a way to skip some systems if not found by quicklisp. Right now it&apos;s only sb-introspect&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Sat, 17 Dec 2016 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.3.0  (2016-11-10)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;A bit of doc strings.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Cli interface.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Code was split into multiple files.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Thu, 10 Nov 2016 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>0.2.0  (2016-11-04)</title>
+            <description>&lt;p&gt;Initial working functionality.&lt;/p&gt;</description>
+            <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
